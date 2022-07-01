@@ -4,14 +4,10 @@ public class Task1_Array {
     public static int fuelStock = 6600;
     public static Scanner UserInput = new Scanner(System.in);
     public static void main(String[] args) {
-        String[][] customer_queue = new String[3][6];
+        String[][] customer_queue = new String[6][3];
         String customer;
         initialise(customer_queue);
-        for(String[] i : customer_queue){
-            for (String j : i)
-                System.out.print(j + " ");
-            System.out.println();
-        }
+        viewQueue(customer_queue);
 
     }
 
@@ -28,10 +24,11 @@ public class Task1_Array {
         for(int i = 0; i < customer_queue.length; i++){
             for (int j = 0; j < customer_queue[i].length; j++){
                 if (customer_queue[i][j].equals("e"))
-                    System.out.print("Free   ");
+                    System.out.print("Free                  ");
                 else
                     System.out.print(customer_queue[i][j]);
             }
+            System.out.println();
         }
     }
 
