@@ -1,0 +1,75 @@
+FUEL CENTER
+=============
+
+*) 3 pumps in fuel center
+
+*) Each pump can hold 6 customers simultaneously
+
+*) Fuel center fuel capacity - 6600 Liters
+
+*) Everytime customer added to the queue, stock should be updated.
+   Which means everytime a customer joins to the queue
+   the stock quantity should be reduced
+
+*) Given assumption : Serving per customer 10 Liters
+
+*) Warning message should come when fuel reaches every
+   500 liters mark
+
+-----------------------------------------------------------------------------------------
+
+PERFORMING TASKS
+===============
+
+when admin enters (can be any case[upper or lower]),
+
+*) 100 or VFQ  - View all Fuel queues (Including the customer
+                 name and queue count)
+
+*) 101 or VEQ  - View all empty queues ( Display 3 pumps and
+                 show the empty place)
+
+*) 102 or ACQ  - add customer to a queue (If selected particular pump is full then
+   (add method)  ask customer for next pump)
+
+*) 103 or RCQ  - Remove customer from a queue (From specific location and
+   (remove method)  after removing customer, add the next customer to front)
+
+*) 104 or PCQ  - Remove a served customer (After removing customer, need to reduce fuel
+                 from fuel stock)
+
+*) 105 or VCS  - View customers sorted in alphabetical order (Can use any sorting algo)
+
+*) 106 or SPD  - Store program data into text file
+
+*) 107 or LPD  - Load program from text file
+
+*) 108 or STK  - View remaining fuel stock
+
+*) 109 or AFS  - Add fuel stock
+
+*) 999 or EXT  - Exit program
+
+-----------------------------------------------------------------------------------------
+
+ASSUMPTIONS
+============
+
+*) If a customer is getting added to the queue. The programme should check whether gasoline is available
+   for the new passenger or not. If there is no gasoline, programme should ask admin to add gasoline. If
+   the admin says yes, then program ask to enter the code (109 or AFS). If the admins says no
+   then customer should leave. If the code is wrong then asks admins again to say yes or no and continue
+   the process till it validate.
+
+*) If gasoline is available and customer's selected pump is full, then program should ask customer to
+   enter another pump and if the customer is not satisfied then he/ she can leave the queue.
+
+*) If the gasoline center is full then tell customer to get the hell of the entrance.
+
+*) When admin removes a particular customer from the queue without serving gasoline, the gasoline quantity
+   should not get reduce and next passenger should come to the removed position.
+
+*) The gasoline count should only get reduce when the customer get served and
+   next passenger should come to the removed position.
+
+*) The text file should always create as new when user rerun the programme.
