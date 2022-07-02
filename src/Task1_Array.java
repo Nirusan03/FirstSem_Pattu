@@ -36,8 +36,14 @@ public class Task1_Array {
             else if (customer.equals("102") || customer.equals("ACQ"))
                 addCustomer(customer_queue);
 
+            else if (customer.equals("108") || customer.equals("STK"))
+                remainingFuel();
+
             else if (customer.equals("109") || customer.equals("AFS"))
                 addFuel();
+
+            else if (customer.equals("999") || customer.equals("EXT"))
+                break;
         }
 
     }
@@ -96,9 +102,11 @@ public class Task1_Array {
     public static void addCustomer(String[][] customer_queue){
         String name;
         int pumpNo;
-        addFuel();
+
         if (fuelStock == 0)
             System.out.println("Sorry there is no fuel in stock. Mooditu queue ah anupuda");
+        else if (fuelStock <= 100)
+            addFuel();
         viewQueue(customer_queue);
         System.out.print("\nEnter customer's name : ");
         name  = UserInput.nextLine();
@@ -122,25 +130,26 @@ public class Task1_Array {
                     break;
                 }
             }
+
+            else{
+                System.out.println("Invalid pump number.\n");
+            }
         }
     }
 
     public static void addFuel(){
         if (fuelStock <= 100){
-            System.out.print("""
-                    Fuel stock is nearly empty.
-                    Would you like to add Stock again?
-                    Enter 'Y' to refill | Enter 'N' to not refill""");
+            System.out.print("\nFuel stock is nearly empty.\nWould you like to add Stock again?" +
+                    "\nEnter 'Y' to refill | Enter 'N' to not refill : ");
         }
 
         else if(fuelStock == 0){
-            System.out.print("""
-                    Fuel stock is empty.
-                    Enter 'Y' to refill | Enter 'N' to not refill""");
+            System.out.print("\nFuel stock is empty." +
+                    "\nEnter 'Y' to refill | Enter 'N' to not refill : ");
         }
 
         else
-            System.out.print("There are " + fuelStock + "l of fuel stock left.\nWould you like to add Stock again?" +
+            System.out.print("\nThere are " + fuelStock + "l of fuel stock left.\nWould you like to add Stock again?" +
                 "?\nEnter 'Y' to refill | Enter 'N' to not refill");
         String option = UserInput.nextLine().toUpperCase();
         if (option.equals("Y")){
