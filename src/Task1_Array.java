@@ -201,6 +201,39 @@ public class Task1_Array {
 
     // 105 or VCS: View Customers Sorted in alphabetical order
     public static void sortedNames(String[][] customer_queue){
+        String[][] customer_sort = new String[3][6];
+
+        for(int i = 0; i < customer_queue.length; i++)
+            for(int j = 0; j < customer_queue[i].length; j++)
+                customer_sort[i][j] = customer_queue[i][j];
+
+        for (int i = 0; i < customer_sort.length; i++){
+            for (int j = 0; j < customer_sort[i].length; j++){
+                for (int k = j + 1; k < customer_sort[i].length; k++){
+                    if (customer_sort[i][j].compareTo(customer_sort[i][k]) > 0){
+                        String temp = customer_sort[i][j];
+                        customer_sort[i][j] = customer_sort[i][k];
+                        customer_sort[i][k] = temp;
+                    }
+                }
+//                if(j != customer_sort[i].length-1){
+
+//                }
+            }
+        }
+
+        for(int i = 0; i < customer_sort.length; i++) {
+            for (int j = 0; j < customer_sort[i].length; j++) {
+                if (j == 0)
+                    System.out.print("Gasoline Pump " + (i + 1) + " : ");
+                if (customer_sort[i][j].equals("e")) {
+                    System.out.print("Available | ");
+                    count[i]++;
+                } else
+                    System.out.print(customer_sort[i][j] + " | ");
+            }
+            System.out.println();
+        }
 
     }
 
