@@ -35,6 +35,9 @@ public class Task1_Array {
 
             else if (customer.equals("102") || customer.equals("ACQ"))
                 addCustomer(customer_queue);
+
+            else if (customer.equals("109") || customer.equals("AFS"))
+                addFuel();
         }
 
     }
@@ -93,6 +96,9 @@ public class Task1_Array {
     public static void addCustomer(String[][] customer_queue){
         String name;
         int pumpNo;
+        addFuel();
+        if (fuelStock == 0)
+            System.out.println("Sorry there is no fuel in stock. Mooditu queue ah anupuda");
         viewQueue(customer_queue);
         System.out.print("\nEnter customer's name : ");
         name  = UserInput.nextLine();
@@ -109,6 +115,7 @@ public class Task1_Array {
                     for(int i = 0; i < customer_queue[pumpNo].length; i++){
                         if (customer_queue[pumpNo][i].equals("e")){
                          customer_queue[pumpNo][i] = name;
+                         fuelStock -= 10;
                          break;
                         }
                     }
@@ -116,8 +123,36 @@ public class Task1_Array {
                 }
             }
         }
+    }
 
-}
+    public static void addFuel(){
+        if (fuelStock <= 100){
+            System.out.print("""
+                    Fuel stock is nearly empty.
+                    Would you like to add Stock again?
+                    Enter 'Y' to refill | Enter 'N' to not refill""");
+        }
 
+        else if(fuelStock == 0){
+            System.out.print("""
+                    Fuel stock is empty.
+                    Enter 'Y' to refill | Enter 'N' to not refill""");
+        }
 
+        else
+            System.out.print("There are " + fuelStock + "l of fuel stock left.\nWould you like to add Stock again?" +
+                "?\nEnter 'Y' to refill | Enter 'N' to not refill");
+        String option = UserInput.nextLine().toUpperCase();
+        if (option.equals("Y")){
+            fuelStock = 6600;
+            System.out.println("Fuel stock refiled.");
+        }
+
+        else
+            System.out.println("Stock is same");
+    }
+
+    public static void remainingFuel(){
+        System.out.println("Remaining fuel : " + fuelStock + " liters");
+    }
 }
