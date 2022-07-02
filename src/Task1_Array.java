@@ -28,9 +28,9 @@ public class Task1_Array {
                     "Enter the number or characters to perform the task : ");
 
             customer = UserInput.nextLine().toUpperCase();
-            if (additionalLine != 0)
-                UserInput.nextLine();
-            additionalLine++;
+//            if (additionalLine != 0)
+//                UserInput.nextLine();
+//            additionalLine++;
 
 
             // 100 or VFQ: View all Fuel Queues.
