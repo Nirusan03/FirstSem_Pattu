@@ -1,0 +1,10 @@
+Available fuel in stock : 6600 liters
+Current customer count on Fuel center :  1
+
+Gasoline pump 1 : Available | Available | Available | Available | Available | Available | 
+Gasoline pump 2 : Nirusan | Available | Available | Available | Available | Available | 
+Gasoline pump 3 : Available | Available | Available | Available | Available | Available | 
+
+6 slots available in pump no1
+5 slots available in pump no2
+6 slots available in pump no3

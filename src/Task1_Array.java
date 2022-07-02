@@ -1,14 +1,18 @@
 import javax.print.MultiDocPrintService;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class Task1_Array {
     public static int fuelStock = 6600;
     public static Scanner UserInput = new Scanner(System.in);
     public static int[] count = {0, 0, 0};
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
 
         String[][] customer_queue = new String[3][6];
         String customer;
+        int additionalLine = 0;
         initialise(customer_queue);
 //        viewQueue(customer_queue);
 //        System.out.println(customer);
@@ -28,8 +32,15 @@ public class Task1_Array {
                     "Enter the number or characters to perform the task : ");
 
             customer = UserInput.nextLine().toUpperCase();
+            if (additionalLine != 0)
+                UserInput.nextLine();
+            additionalLine++;
             if (customer.equals("100") || customer.equals("VFQ"))
+            {
+                System.out.println("Displaying all customers in fuel queue.\n");
                 viewQueue(customer_queue);
+            }
+
 
             else if (customer.equals("101") || customer.equals("VEQ"))
                 emptyQueue (customer_queue);
@@ -55,11 +66,16 @@ public class Task1_Array {
             else if (customer.equals("108") || customer.equals("STK"))
                 remainingFuel();
 
-            else if (customer.equals("109") || customer.equals("AFS"))
+            else if (customer.equals("109") || customer.equals("AFS")){
+                System.out.println("Adding fuel to stock option is selected.\n");
                 addFuel();
+            }
 
             else if (customer.equals("999") || customer.equals("EXT"))
                 break;
+
+            else
+                System.out.println("Invalid option selected.\nTry again.");
         }
 
     }
@@ -99,6 +115,7 @@ public class Task1_Array {
 
     //101 or VEQ: View all Empty Queues.
     public static void emptyQueue(String[][] customer_queue){
+        System.out.println("\nEmpty slots of each queue.\n");
         int count = 0;
         for(int i = 0; i < customer_queue.length; i++){
             for (int j = 0; j < customer_queue[i].length; j++){
@@ -119,6 +136,7 @@ public class Task1_Array {
 
     // 102 or ACQ: Add customer to a Queue.
     public static void addCustomer(String[][] customer_queue){
+        System.out.println("\nAdding customer to queue.\n");
         String name;
         int pumpNo;
 
@@ -157,10 +175,11 @@ public class Task1_Array {
 
     // 103 or RCQ: Remove a customer from a Queue. (From a specific location)
     public static void removeSpecific(String[][] customer_queue) {
-        System.out.println("\nEnter the served customer's pump number : ");
+        System.out.println("\nRemoving customer from queue selected.\n");
+        System.out.print("\nEnter the served customer's pump number : ");
         int pump_number = UserInput.nextInt() - 1;
 
-        System.out.println("\nEnter the served customer's queue position number : ");
+        System.out.print("\nEnter the served customer's queue position number : ");
         int pos = UserInput.nextInt();
 
         while (true) {
@@ -180,7 +199,8 @@ public class Task1_Array {
 
     // 104 or PCQ: Remove a served customer.
     public static void removeServed(String[][] customer_queue){
-        System.out.println("\nEnter the served customer's pump number : ");
+        System.out.println("\nRemoving served customer from queue selected.\n");
+        System.out.println("Enter the served customer's pump number : ");
         int pump_number = UserInput.nextInt()-1;
         int pos = 1;
         while (true){
@@ -201,6 +221,7 @@ public class Task1_Array {
 
     // 105 or VCS: View Customers Sorted in alphabetical order
     public static void sortedNames(String[][] customer_queue){
+        System.out.println("\nSorted customer names in the queues bellow.\n");
         String[][] customer_sort = new String[3][6];
 
         for(int i = 0; i < customer_queue.length; i++)
@@ -228,7 +249,6 @@ public class Task1_Array {
                     System.out.print("Gasoline Pump " + (i + 1) + " : ");
                 if (customer_sort[i][j].equals("e")) {
                     System.out.print("Available | ");
-                    count[i]++;
                 } else
                     System.out.print(customer_sort[i][j] + " | ");
             }
@@ -238,17 +258,65 @@ public class Task1_Array {
     }
 
     // 106 or SPD: Store Program Data into file.
-    public static void storeDataFile(String[][] customer_queue){
+    public static void storeDataFile(String[][] customer_queue) throws IOException {
+        String customerData_Container = "";
+        viewQueue(customer_queue);
 
+        customerData_Container += "Available fuel in stock : " + fuelStock + " liters\n";
+        int customer_count = 0;
+        for(String[] names : customer_queue)
+            for (String name: names){
+                if (!name.equals("e"))
+                    customer_count++;
+            }
+
+        customerData_Container += "Current customer count on Fuel center :  " + (customer_count) + "\n\n";
+        for (int i = 0; i < customer_queue.length; i++){
+            for (int j = 0; j < customer_queue[i].length; j++){
+                if (j == 0)
+                    customerData_Container += "Gasoline pump " + (i + 1) + " : ";
+                if (customer_queue[i][j].equals("e")){
+                    customerData_Container += "Available | ";
+                }
+
+                else
+                    customerData_Container += customer_queue[i][j] + " | ";
+            }
+            customerData_Container += "\n";
+        }
+        customerData_Container += "\n";
+        for(int x = 0; x < count.length; x++){
+            if (count[x] == 0)
+                customerData_Container += "No slots available in pump no" + (x+1) + "\n";
+            else
+                customerData_Container += count[x] + " slots available in pump no" + (x+1) + "\n";
+        }
+
+        // Writer class to perform writings on text file
+        // Accessing the text file
+        FileWriter fileWrite = new FileWriter("Task1_FuelCenter.txt");
+
+        // Writing on text file
+        fileWrite.write(customerData_Container);
+
+        // Committing the changes
+        fileWrite.close();
+
+        System.out.println("Data above stored in text file");
     }
 
     // 107 or LPD: Load Program Data from file.
-    public static void loadDataFile(String[][] customer_queue){
-
+    public static void loadDataFile(String[][] customer_queue) throws IOException{
+        System.out.println("\nLoaded data from text file\n");
+        File readFile = new File("Task1_FuelCenter.txt");
+        Scanner scanFile = new Scanner(readFile);
+        while (scanFile.hasNextLine())
+            System.out.println(scanFile.nextLine());
     }
 
     // 108 or STK: View Remaining Fuel Stock.
     public static void remainingFuel(){
+        System.out.println("\nDisplaying remaining fuel in stock.\n");
         System.out.println("Remaining fuel : " + fuelStock + " liters");
     }
 
@@ -276,5 +344,4 @@ public class Task1_Array {
         else
             System.out.println("Stock is same");
     }
-
 }
