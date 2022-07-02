@@ -59,7 +59,7 @@ public class Task1_Array {
                 }
 
                 else
-                    System.out.print(customer_queue[i][j]);
+                    System.out.print(customer_queue[i][j] + " | ");
             }
             System.out.println("\n");
         }
@@ -99,16 +99,24 @@ public class Task1_Array {
         name = Character.toUpperCase(name.charAt(0))+ name.substring(1);
         while (true){
             System.out.print("Enter the pump number, " + name + " wish to go : ");
-            pumpNo = UserInput.nextInt();
+            pumpNo = UserInput.nextInt() - 1;
 
-            if (pumpNo >= 1 && pumpNo <= 3){
+            if (pumpNo >= 0 && pumpNo <= 2){
                 if (count[pumpNo] == 0)
                     System.out.println("Sorry, there is no space in pump " + pumpNo +
                             "'s queue");
-                else
+                else{
+                    for(int i = 0; i < customer_queue[pumpNo].length; i++){
+                        if (customer_queue[pumpNo][i].equals("e")){
+                         customer_queue[pumpNo][i] = name;
+                         break;
+                        }
+                    }
                     break;
+                }
             }
         }
+
 }
 
 
