@@ -1,7 +1,4 @@
-import javax.print.MultiDocPrintService;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class Task1_Array {
@@ -14,8 +11,7 @@ public class Task1_Array {
         String customer;
         int additionalLine = 0;
         initialise(customer_queue);
-//        viewQueue(customer_queue);
-//        System.out.println(customer);
+
         while (true){
             System.out.print("\n\nFuel center administration to, \n\n" +
                     "100 or VFQ: View all Fuel Queues.\n" +
@@ -36,45 +32,57 @@ public class Task1_Array {
                 UserInput.nextLine();
             additionalLine++;
 
+
+            // 100 or VFQ: View all Fuel Queues.
             if (customer.equals("100") || customer.equals("VFQ"))
             {
                 System.out.println("Displaying all customers in fuel queue.\n");
                 viewQueue(customer_queue);
             }
 
-
+            //101 or VEQ: View all Empty Queues.
             else if (customer.equals("101") || customer.equals("VEQ"))
                 emptyQueue (customer_queue);
 
+            // 102 or ACQ: Add customer to a Queue.
             else if (customer.equals("102") || customer.equals("ACQ"))
                 addCustomer(customer_queue);
 
+            // 103 or RCQ: Remove a customer from a Queue. (From a specific location)
             else if (customer.equals("103") || customer.equals("RCQ"))
                 removeSpecific(customer_queue);
 
+            // 104 or PCQ: Remove a served customer.
             else if (customer.equals("104") || customer.equals("PCQ"))
                 removeServed(customer_queue);
 
+            // 105 or VCS: View Customers Sorted in alphabetical order
             else if (customer.equals("105") || customer.equals("VCS"))
                 sortedNames(customer_queue);
 
+            // 106 or SPD: Store Program Data into file.
             else if (customer.equals("106") || customer.equals("SPD"))
                 storeDataFile(customer_queue);
 
+            // 107 or LPD: Load Program Data from file.
             else if (customer.equals("107") || customer.equals("LPD"))
                 loadDataFile(customer_queue);
 
+            // 108 or STK: View Remaining Fuel Stock.
             else if (customer.equals("108") || customer.equals("STK"))
                 remainingFuel();
 
+            //109 or AFS: Add Fuel Stock.
             else if (customer.equals("109") || customer.equals("AFS")){
                 System.out.println("Adding fuel to stock option is selected.\n");
                 addFuel();
             }
 
+            //999 or EXT: Exit the Program.
             else if (customer.equals("999") || customer.equals("EXT"))
                 break;
 
+            // If admin enters invalid option
             else
                 System.out.println("Invalid option selected.\nTry again.");
         }
@@ -238,9 +246,6 @@ public class Task1_Array {
                         customer_sort[i][k] = temp;
                     }
                 }
-//                if(j != customer_sort[i].length-1){
-
-//                }
             }
         }
 
