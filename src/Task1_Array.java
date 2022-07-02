@@ -35,6 +35,7 @@ public class Task1_Array {
             if (additionalLine != 0)
                 UserInput.nextLine();
             additionalLine++;
+
             if (customer.equals("100") || customer.equals("VFQ"))
             {
                 System.out.println("Displaying all customers in fuel queue.\n");
