@@ -43,6 +43,15 @@ public class Task1_Array {
             else if (customer.equals("104") || customer.equals("PCQ"))
                 removeServed(customer_queue);
 
+            else if (customer.equals("105") || customer.equals("VCS"))
+                sortedNames(customer_queue);
+
+            else if (customer.equals("106") || customer.equals("SPD"))
+                storeDataFile(customer_queue);
+
+            else if (customer.equals("107") || customer.equals("LPD"))
+                loadDataFile(customer_queue);
+
             else if (customer.equals("108") || customer.equals("STK"))
                 remainingFuel();
 
@@ -88,6 +97,7 @@ public class Task1_Array {
         }
     }
 
+    //101 or VEQ: View all Empty Queues.
     public static void emptyQueue(String[][] customer_queue){
         int count = 0;
         for(int i = 0; i < customer_queue.length; i++){
@@ -107,6 +117,7 @@ public class Task1_Array {
         }
     }
 
+    // 102 or ACQ: Add customer to a Queue.
     public static void addCustomer(String[][] customer_queue){
         String name;
         int pumpNo;
@@ -144,34 +155,7 @@ public class Task1_Array {
         }
     }
 
-    public static void addFuel(){
-        if (fuelStock <= 100){
-            System.out.print("\nFuel stock is nearly empty.\nWould you like to add Stock again?" +
-                    "\nEnter 'Y' to refill | Enter 'N' to not refill : ");
-        }
-
-        else if(fuelStock == 0){
-            System.out.print("\nFuel stock is empty." +
-                    "\nEnter 'Y' to refill | Enter 'N' to not refill : ");
-        }
-
-        else
-            System.out.print("\nThere are " + fuelStock + "l of fuel stock left.\nWould you like to add Stock again?" +
-                "?\nEnter 'Y' to refill | Enter 'N' to not refill");
-        String option = UserInput.nextLine().toUpperCase();
-        if (option.equals("Y")){
-            fuelStock = 6600;
-            System.out.println("Fuel stock refiled.");
-        }
-
-        else
-            System.out.println("Stock is same");
-    }
-
-    public static void remainingFuel(){
-        System.out.println("Remaining fuel : " + fuelStock + " liters");
-    }
-
+    // 103 or RCQ: Remove a customer from a Queue. (From a specific location)
     public static void removeSpecific(String[][] customer_queue) {
         System.out.println("\nEnter the served customer's pump number : ");
         int pump_number = UserInput.nextInt() - 1;
@@ -179,7 +163,6 @@ public class Task1_Array {
         System.out.println("\nEnter the served customer's queue position number : ");
         int pos = UserInput.nextInt();
 
-//        int pos = 1;
         while (true) {
             if (pump_number <= 2 && pump_number >= 0) {
                 for (int i = pos - 1; i < customer_queue[pump_number].length; i++) {
@@ -195,6 +178,7 @@ public class Task1_Array {
         }
     }
 
+    // 104 or PCQ: Remove a served customer.
     public static void removeServed(String[][] customer_queue){
         System.out.println("\nEnter the served customer's pump number : ");
         int pump_number = UserInput.nextInt()-1;
@@ -213,7 +197,51 @@ public class Task1_Array {
             else
                 System.out.println("Invalid Pump number.");
         }
-//        customer_queue[customer_queue.length-1] = "e";
+    }
+
+    // 105 or VCS: View Customers Sorted in alphabetical order
+    public static void sortedNames(String[][] customer_queue){
+
+    }
+
+    // 106 or SPD: Store Program Data into file.
+    public static void storeDataFile(String[][] customer_queue){
+
+    }
+
+    // 107 or LPD: Load Program Data from file.
+    public static void loadDataFile(String[][] customer_queue){
+
+    }
+
+    // 108 or STK: View Remaining Fuel Stock.
+    public static void remainingFuel(){
+        System.out.println("Remaining fuel : " + fuelStock + " liters");
+    }
+
+    //109 or AFS: Add Fuel Stock.
+    public static void addFuel(){
+        if (fuelStock <= 100){
+            System.out.print("\nFuel stock is nearly empty.\nWould you like to add Stock again?" +
+                    "\nEnter 'Y' to refill | Enter 'N' to not refill : ");
+        }
+
+        else if(fuelStock == 0){
+            System.out.print("\nFuel stock is empty." +
+                    "\nEnter 'Y' to refill | Enter 'N' to not refill : ");
+        }
+
+        else
+            System.out.print("\nThere are " + fuelStock + "l of fuel stock left.\nWould you like to add Stock again?" +
+                    "?\nEnter 'Y' to refill | Enter 'N' to not refill");
+        String option = UserInput.nextLine().toUpperCase();
+        if (option.equals("Y")){
+            fuelStock = 6600;
+            System.out.println("Fuel stock refiled.");
+        }
+
+        else
+            System.out.println("Stock is same");
     }
 
 }
