@@ -1,3 +1,4 @@
+import javax.print.MultiDocPrintService;
 import java.util.*;
 
 public class Task1_Array {
@@ -36,6 +37,12 @@ public class Task1_Array {
             else if (customer.equals("102") || customer.equals("ACQ"))
                 addCustomer(customer_queue);
 
+            else if (customer.equals("103") || customer.equals("RCQ"))
+                removeSpecific(customer_queue);
+
+            else if (customer.equals("104") || customer.equals("PCQ"))
+                removeServed(customer_queue);
+
             else if (customer.equals("108") || customer.equals("STK"))
                 remainingFuel();
 
@@ -56,6 +63,7 @@ public class Task1_Array {
         }
     }
 
+    // 100 or VFQ: View all Fuel Queues.
     public static void viewQueue(String[][] customer_queue){
         count = new int[]{0, 0, 0};
         for(int i = 0; i < customer_queue.length; i++){
@@ -123,7 +131,6 @@ public class Task1_Array {
                     for(int i = 0; i < customer_queue[pumpNo].length; i++){
                         if (customer_queue[pumpNo][i].equals("e")){
                          customer_queue[pumpNo][i] = name;
-                         fuelStock -= 10;
                          break;
                         }
                     }
@@ -164,4 +171,49 @@ public class Task1_Array {
     public static void remainingFuel(){
         System.out.println("Remaining fuel : " + fuelStock + " liters");
     }
+
+    public static void removeSpecific(String[][] customer_queue) {
+        System.out.println("\nEnter the served customer's pump number : ");
+        int pump_number = UserInput.nextInt() - 1;
+
+        System.out.println("\nEnter the served customer's queue position number : ");
+        int pos = UserInput.nextInt();
+
+//        int pos = 1;
+        while (true) {
+            if (pump_number <= 2 && pump_number >= 0) {
+                for (int i = pos - 1; i < customer_queue[pump_number].length; i++) {
+                    if (i != customer_queue[pump_number].length - 1) {
+                        customer_queue[pump_number][i] = customer_queue[pump_number][pos];
+                        pos++;
+                    }
+                }
+                fuelStock -= 10;
+                break;
+            } else
+                System.out.println("Invalid Pump number.");
+        }
+    }
+
+    public static void removeServed(String[][] customer_queue){
+        System.out.println("\nEnter the served customer's pump number : ");
+        int pump_number = UserInput.nextInt()-1;
+        int pos = 1;
+        while (true){
+            if (pump_number <= 2 && pump_number >=0){
+                for(int i = 0 ; i < customer_queue[pump_number].length; i++){
+                    if (i != customer_queue[pump_number].length-1){
+                        customer_queue[pump_number][i] = customer_queue[pump_number][pos];
+                        pos++;
+                    }
+                }
+                fuelStock -= 10;
+                break;
+            }
+            else
+                System.out.println("Invalid Pump number.");
+        }
+//        customer_queue[customer_queue.length-1] = "e";
+    }
+
 }
