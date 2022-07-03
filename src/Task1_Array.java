@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Task1_Array {
-    public static int fuelStock = 6600;
+    public static int fuelStock = 6110;
     public static Scanner UserInput = new Scanner(System.in);
     public static int[] count = {0, 0, 0};
     public static void main(String[] args) throws IOException{
@@ -32,7 +32,7 @@ public class Task1_Array {
 //                UserInput.nextLine();
 //            additionalLine++;
 
-
+//            if (additionalLine )
             // 100 or VFQ: View all Fuel Queues.
             if (customer.equals("100") || customer.equals("VFQ"))
             {
@@ -169,6 +169,7 @@ public class Task1_Array {
                     for(int i = 0; i < customer_queue[pumpNo].length; i++){
                         if (customer_queue[pumpNo][i].equals("e")){
                          customer_queue[pumpNo][i] = name;
+                            System.out.println("Customer added to the queue");
                          break;
                         }
                     }
@@ -180,52 +181,87 @@ public class Task1_Array {
                 System.out.println("Invalid pump number.\n");
             }
         }
+        UserInput.nextLine();
     }
 
     // 103 or RCQ: Remove a customer from a Queue. (From a specific location)
     public static void removeSpecific(String[][] customer_queue) {
-        System.out.println("\nRemoving customer from queue selected.\n");
-        System.out.print("\nEnter the served customer's pump number : ");
+        System.out.println("\nRemoving customer from queue selected.\n\n");
+        System.out.println("Displaying all customers in the queue.\n");
+        viewQueue(customer_queue);
+
+        System.out.print("\nEnter the customer's pump number to remove : ");
         int pump_number = UserInput.nextInt() - 1;
 
-        System.out.print("\nEnter the served customer's queue position number : ");
-        int pos = UserInput.nextInt();
+        if (count[pump_number] != 6)
+        {
+            System.out.print("Enter the customer's queue position number : ");
+            int pos = UserInput.nextInt();
 
-        while (true) {
-            if (pump_number <= 2 && pump_number >= 0) {
-                for (int i = pos - 1; i < customer_queue[pump_number].length; i++) {
-                    if (i != customer_queue[pump_number].length - 1) {
-                        customer_queue[pump_number][i] = customer_queue[pump_number][pos];
-                        pos++;
-                    }
+            if (!customer_queue[pump_number][pos-1].equals("e")){
+                while (true) {
+                    if (pump_number <= 2 && pump_number >= 0) {
+                        for (int i = pos - 1; i < customer_queue[pump_number].length; i++) {
+                            if (i != customer_queue[pump_number].length - 1) {
+                                customer_queue[pump_number][i] = customer_queue[pump_number][pos];
+                                pos++;
+                            }
+                        }
+                        break;
+                    } else
+                        System.out.println("Invalid Pump number.");
                 }
-                fuelStock -= 10;
-                break;
-            } else
-                System.out.println("Invalid Pump number.");
+                System.out.println("Customer removed from the queue");
+            }
+
+            else
+                System.out.println("There is no customer in that particular slot.");
         }
+
+        else
+            System.out.println("There is no customer in pump no " + (pump_number+1));
+        UserInput.nextLine();
     }
 
     // 104 or PCQ: Remove a served customer.
     public static void removeServed(String[][] customer_queue){
         System.out.println("\nRemoving served customer from queue selected.\n");
-        System.out.println("Enter the served customer's pump number : ");
+
+        System.out.println("Displaying all customers in the queue.\n");
+        viewQueue(customer_queue);
+
+        System.out.print("Enter the served customer's pump number : ");
         int pump_number = UserInput.nextInt()-1;
         int pos = 1;
-        while (true){
-            if (pump_number <= 2 && pump_number >=0){
-                for(int i = 0 ; i < customer_queue[pump_number].length; i++){
-                    if (i != customer_queue[pump_number].length-1){
-                        customer_queue[pump_number][i] = customer_queue[pump_number][pos];
-                        pos++;
+        if (count[pump_number] != 6){
+            while (true){
+                if (pump_number <= 2 && pump_number >=0){
+                    for(int i = 0 ; i < customer_queue[pump_number].length; i++){
+                        if (i != customer_queue[pump_number].length-1){
+                            customer_queue[pump_number][i] = customer_queue[pump_number][pos];
+                            pos++;
+                        }
                     }
+                    System.out.println("Served for the customer. Customer removed from the queue.\n");
+                    fuelStock -= 10;
+
+                    if ( (6600 - fuelStock) % 500 == 0){
+                        System.out.println("Fuel reached a value of 500 liters.");
+                        addFuel();
+                    }
+                    else
+                        System.out.println("Remaining fuel : " + fuelStock + " liters");
+                    break;
                 }
-                fuelStock -= 10;
-                break;
+                else
+                    System.out.println("Invalid Pump number.");
             }
-            else
-                System.out.println("Invalid Pump number.");
         }
+
+        else
+            System.out.println("There is no customer in pump no " + (pump_number+1));
+
+        UserInput.nextLine();
     }
 
     // 105 or VCS: View Customers Sorted in alphabetical order
@@ -328,26 +364,42 @@ public class Task1_Array {
 
     //109 or AFS: Add Fuel Stock.
     public static void addFuel(){
-        if (fuelStock <= 100){
-            System.out.print("\nFuel stock is nearly empty.\nWould you like to add Stock again?" +
-                    "\nEnter 'Y' to refill | Enter 'N' to not refill : ");
-        }
+        String option = "";
 
-        else if(fuelStock == 0){
-            System.out.print("\nFuel stock is empty." +
-                    "\nEnter 'Y' to refill | Enter 'N' to not refill : ");
-        }
+        while (true){
+            if (fuelStock <= 100){
+                System.out.print("\nFuel stock is nearly empty.\nWould you like to add Stock again?" +
+                        "\nEnter 'Y' to refill | Enter 'N' to not refill : ");
+                option = UserInput.nextLine().toUpperCase();
+            }
 
-        else
-            System.out.print("\nThere are " + fuelStock + "l of fuel stock left.\nWould you like to add Stock again?" +
-                    "?\nEnter 'Y' to refill | Enter 'N' to not refill");
-        String option = UserInput.nextLine().toUpperCase();
-        if (option.equals("Y")){
-            fuelStock = 6600;
-            System.out.println("Fuel stock refiled.");
-        }
+            else if(fuelStock == 0){
+                System.out.print("\nFuel stock is empty." +
+                        "\nEnter 'Y' to refill | Enter 'N' to not refill : ");
+                option = UserInput.nextLine().toUpperCase();
+            }
 
-        else
-            System.out.println("Stock is same");
+            else{
+                System.out.print("There are " + fuelStock + "l of fuel stock left.\nWould you like to add Stock again?" +
+                        "?\nEnter 'Y' to refill | Enter 'N' to not refill : ");
+                option = UserInput.nextLine().toUpperCase();
+            }
+
+
+            option = UserInput.nextLine().toUpperCase();
+            if (option.equals("Y")){
+                fuelStock = 6600;
+                System.out.println("Fuel stock refiled.");
+                break;
+            }
+
+            else if (option.equals("N")){
+                System.out.println("Stock is same");
+                break;
+            }
+
+            else
+                System.out.println("Invalid option entered.\nTry again.\n");
+        }
     }
 }
