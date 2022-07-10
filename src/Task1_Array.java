@@ -20,6 +20,9 @@ public class Task1_Array {
     // Storing served customers count inside an integer variable to store in text file
     public static int servedCustomer_count = 0;
 
+    // Storing served customers count inside a string variable to store in text file
+    public static String servedCount = "";
+
     // Storing served fuel in liters inside an integer variable to store in text file
     public static int servedFuel = 0;
 
@@ -493,6 +496,7 @@ public class Task1_Array {
         // Before storing displaying queue data to admin.
         viewQueue(customer_queue);
 
+        customerData_Container += "FUEL CENTER - TASK 1\n====================\n\n";
         // Storing available fuel in string.
         customerData_Container += "Available fuel in stock : " + fuelStock + " liters\n";
 
@@ -507,7 +511,8 @@ public class Task1_Array {
             }
 
         // Storing customer count in string.
-        customerData_Container += "Current customer count on Fuel center :  " + (customer_count) + "\n\n";
+        customerData_Container += "Current customer count on Fuel center :  " + (customer_count) + "\n\n" +
+                "Existing pump details : \n";
         for (int i = 0; i < customer_queue.length; i++){
             for (int j = 0; j < customer_queue[i].length; j++){
 
@@ -538,6 +543,9 @@ public class Task1_Array {
                 customerData_Container += count[x] + " slots available in pump no" + (x+1) + "\n";
         }
 
+        // Concatenating served customer count.
+        servedCount = "Served customer count : " + servedCustomer_count + "\n";
+
         // Writer class to perform writings on text file.
         // Accessing the text file.
         FileWriter fileWrite = new FileWriter("Task1_FuelCenter.txt");
@@ -545,6 +553,7 @@ public class Task1_Array {
         // Writing on text file.
         fileWrite.write(customerData_Container);
         fileWrite.write(servedCustomer);
+        fileWrite.write(servedCount);
         // Committing the changes.
         fileWrite.close();
 

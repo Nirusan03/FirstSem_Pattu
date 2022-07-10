@@ -1,8 +1,12 @@
+FUEL CENTER - TASK 1
+====================
+
 Available fuel in stock : 6580 liters
-Served fuel in liters   : 20liters
+Served fuel in liters   : 20 liters
 Current customer count on Fuel center :  1
 
-Gasoline pump 1 : Werwe | Available | Available | Available | Available | Available | 
+Existing pump details : 
+Gasoline pump 1 : Nirusan | Available | Available | Available | Available | Available | 
 Gasoline pump 2 : Available | Available | Available | Available | Available | Available | 
 Gasoline pump 3 : Available | Available | Available | Available | Available | Available | 
 
@@ -12,9 +16,10 @@ Gasoline pump 3 : Available | Available | Available | Available | Available | Av
 
 Served Customers data
 ---------------------
-1) Nrisuan
+1) Nirusan
    Pump number - 1
 
-2) Asdf
+2) Hariahran
    Pump number - 1
 
+Served customer count : 2
