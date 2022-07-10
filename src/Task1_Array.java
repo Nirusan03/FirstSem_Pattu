@@ -98,6 +98,20 @@ public class Task1_Array {
             {
                 System.out.println("\n" + "-".repeat(60)+"\nThe program is ended.");
                 System.out.println("=".repeat(15) + "\n|| THANK YOU ||\n" + "=".repeat(15));
+
+                // Removing data from the text file. So next time when program runs new data can be added without any
+                // issues.
+
+                // Writer class to perform writings on text file
+                // Accessing the text file
+                FileWriter fileWrite = new FileWriter("Task1_FuelCenter.txt", false);
+                PrintWriter printFile = new PrintWriter(fileWrite, false);
+
+                // Writing on text file
+                printFile.flush(); // Flushing the steam
+                printFile.close(); // Closing the file on print file class
+                fileWrite.close(); // Closing the file on file write class
+
                 break;
             }
 
@@ -199,6 +213,7 @@ public class Task1_Array {
 
             // Display queue data before entering customer name.
             viewQueue(customer_queue);
+
             System.out.print("\nEnter customer's name : ");
 
             // Reading  customer name
@@ -210,9 +225,23 @@ public class Task1_Array {
             // Endless loop to get the proper input
             while (true){
 
-                // Getting customer's pump to wish.
-                System.out.print("Enter the pump number, " + name + " wish to go : ");
-                pumpNo = UserInput.nextInt() - 1;
+                // Endless loop to get valid input from admin
+                // Handling errors if user enters any input rather than integer for pump number
+                do{
+
+                    // Getting customer's pump to wish.
+                    try{
+                        System.out.print("Enter the pump number, " + name + " wish to go : ");
+                        pumpNo = UserInput.nextInt() - 1;
+                        break;
+                    }
+
+                    // Display alert message if user enters value rather than integers
+                    catch (InputMismatchException e){
+                        System.out.println("Pump number can only be number.\nInteger Required.\n");
+                        UserInput.nextLine();
+                    }
+                }while (true);
 
                 // If pump number is valid  then program will accept that.
                 if (pumpNo >= 0 && pumpNo <= 2){
@@ -249,21 +278,49 @@ public class Task1_Array {
     public static void removeSpecific(String[][] customer_queue) {
         System.out.println("\n" + "-".repeat(60)+"\nRemoving customer from queue selected.\n\n");
         System.out.println("Displaying all customers in the queue.");
-
+        int pump_number = 0;
+        int pos = 0;
         // Before removing the customer showing the queue details at first.
         viewQueue(customer_queue);
 
-        // Storing customer's pump number to remove from the queue.
-        System.out.print("\nEnter the customer's pump number to remove : ");
-        int pump_number = UserInput.nextInt() - 1;
+        // Endless loop to get valid input from admin
+        do{
+
+            // Storing customer's pump number to remove from the queue.
+            try{
+                System.out.print("\nEnter the customer's pump number to remove : ");
+                pump_number = UserInput.nextInt() - 1;
+                break;
+            }
+
+            // Display alert message if user enters value rather than integers
+            catch (InputMismatchException e){
+                System.out.println("Pump number can only be number.\nInteger Required.\n");
+                UserInput.nextLine();
+            }
+        }while(true);
+
 
         // If the pump is not empty then program will ask for customer's queue slot number.
         if (count[pump_number] != 6)
         {
 
-            // Storing customer's position number to remove from the queue.
-            System.out.print("Enter the customer's queue position number : ");
-            int pos = UserInput.nextInt();
+            // Endless loop to get valid input from admin
+            do{
+                // Storing customer's position number to remove from the queue.
+                try{
+                    System.out.print("Enter the customer's queue position number : ");
+                    pos = UserInput.nextInt();
+                    break;
+                }
+
+                // Display alert message if user enters value rather than integers
+                catch (InputMismatchException e){
+                    System.out.println("Queue position can only be number.\nInteger Required.\n");
+                    UserInput.nextLine();
+                }
+            }while (true);
+
 
             // If the slot is not empty then removing the customer from the queue and filling the empty slot
             // with behind customers.
@@ -302,6 +359,8 @@ public class Task1_Array {
 
     // Method to remove served customer from queue - 104 or PCQ: Remove a served customer.
     public static void removeServed(String[][] customer_queue){
+        int pump_number = 0;
+        int pos = 1; // Variable to bring behind customers to front
         System.out.println("\n" + "-".repeat(60)+"\nRemoving served customer from queue selected.\n");
 
         System.out.println("Displaying all customers in the queue.\n");
@@ -310,10 +369,18 @@ public class Task1_Array {
         viewQueue(customer_queue);
 
         // Getting pump number of served customer.
-        System.out.print("Enter the served customer's pump number : ");
-        int pump_number = UserInput.nextInt()-1;
-
-        int pos = 1; // Variable to bring behind customers to front
+        do{
+            try{
+                System.out.print("Enter the served customer's pump number : ");
+                pump_number = UserInput.nextInt()-1;
+                break;
+            }
+            // Display alert message if user enters value rather than integers
+            catch (InputMismatchException e){
+                System.out.println("Pump number can only be number.\nInteger Required.\n");
+                UserInput.nextLine();
+            }
+        }while (true);
 
         // If the pump is not empty the served customer will get removed.
         if (count[pump_number] != 6){
@@ -470,16 +537,24 @@ public class Task1_Array {
     public static void loadDataFile(String[][] customer_queue) throws IOException{
         System.out.println("\n" + "-".repeat(60)+"\nLoaded data from text file\n");
 
-        // File class to read the text file.
-        // Accessing the text file.
-        File readFile = new File("Task1_FuelCenter.txt");
+        // Error handling if the admin forgets to create the text file.
+        try{
+            // File class to read the text file.
+            // Accessing the text file.
+            File readFile = new File("Task1_FuelCenter.txt");
 
-        // Scanner object to read text file, line by line.
-        Scanner scanFile = new Scanner(readFile);
-        while (scanFile.hasNextLine())
-            System.out.println(scanFile.nextLine());
+            // Scanner object to read text file, line by line.
+            Scanner scanFile = new Scanner(readFile);
+            while (scanFile.hasNextLine())
+                System.out.println(scanFile.nextLine());
 
-        System.out.println("=".repeat(100));
+            System.out.println("=".repeat(100));
+        }
+
+        // Exception if text not found
+        catch (FileNotFoundException e){
+            System.out.println("Cannot find the text file.\nCreate the text file and store data in it.");
+        }
     }
 
     // Method to display remaining fuel in the stock -  108 or STK: View Remaining Fuel Stock.
