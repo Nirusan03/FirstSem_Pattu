@@ -14,6 +14,16 @@ public class Task1_Array {
     // Array to keep count of every vehicle in the fuel center's queue.
     public static int[] count = {0, 0, 0};
 
+    // Storing served customers name inside a string variable to store in text file
+    public static String servedCustomer = "\nServed Customers data\n---------------------\n";
+
+    // Storing served customers count inside an integer variable to store in text file
+    public static int servedCustomer_count = 0;
+
+    // Storing served fuel in liters inside an integer variable to store in text file
+    public static int servedFuel = 0;
+
+
     public static void main(String[] args) throws IOException{
 
         // Array to store customer names of each queue.
@@ -24,6 +34,20 @@ public class Task1_Array {
 
         // Calling initializing method to initialize array customer name array.
         initialise(customer_queue);
+
+
+        // Removing data from the text file. So next time when program runs new data can be added without any
+        // issues.
+
+        // Writer class to perform writings on text file
+        // Accessing the text file
+        FileWriter fileWrite = new FileWriter("Task1_FuelCenter.txt", false);
+        PrintWriter printFile = new PrintWriter(fileWrite, false);
+
+        // Writing on text file
+        printFile.flush(); // Flushing the steam
+        printFile.close(); // Closing the file on print file class
+        fileWrite.close(); // Closing the file on file write class
 
         // Endless loop to keep running code till admin enters to quit.
         while (true){
@@ -98,20 +122,6 @@ public class Task1_Array {
             {
                 System.out.println("\n" + "-".repeat(60)+"\nThe program is ended.");
                 System.out.println("=".repeat(15) + "\n|| THANK YOU ||\n" + "=".repeat(15));
-
-                // Removing data from the text file. So next time when program runs new data can be added without any
-                // issues.
-
-                // Writer class to perform writings on text file
-                // Accessing the text file
-                FileWriter fileWrite = new FileWriter("Task1_FuelCenter.txt", false);
-                PrintWriter printFile = new PrintWriter(fileWrite, false);
-
-                // Writing on text file
-                printFile.flush(); // Flushing the steam
-                printFile.close(); // Closing the file on print file class
-                fileWrite.close(); // Closing the file on file write class
-
                 break;
             }
 
@@ -383,9 +393,12 @@ public class Task1_Array {
         }while (true);
 
         // If the pump is not empty the served customer will get removed.
-        if (count[pump_number] != 6){
+        if (pump_number <= 2 && pump_number >=0){
             while (true){
-                if (pump_number <= 2 && pump_number >=0){
+                if (count[pump_number] != 6 ){
+                    servedCustomer_count ++;
+                    servedCustomer += (servedCustomer_count) + ") " +
+                            customer_queue[pump_number][0] + "\n   Pump number - " + ( pump_number + 1) + "\n\n";
                     for(int i = 0 ; i < customer_queue[pump_number].length; i++){
                         if (i != customer_queue[pump_number].length-1){
                             customer_queue[pump_number][i] = customer_queue[pump_number][pos];
@@ -394,10 +407,13 @@ public class Task1_Array {
                     }
 
                     // Displaying the customer got removed.
-                    System.out.println("Served for the customer. Customer removed from the queue.\n");
+                    System.out.println("\nServed for the customer. Customer removed from the queue.");
 
                     // Deducting 10 liters from fuel stock.
                     fuelStock -= 10;
+                    servedFuel += 10;
+                    // Keep counting served customers
+
 
                     // Displaying a message when fuel reaches 500 liters of stock and asking to refill or not.
                     if ( (6600 - fuelStock) % 500 == 0){
@@ -413,13 +429,13 @@ public class Task1_Array {
 
                 // If admin enters invalid pump number displaying the message and asking to enter again.
                 else
-                    System.out.println("Invalid Pump number.");
+                    System.out.println("There is no customer in pump no " + (pump_number+1));
             }
         }
 
         // Displaying message if there is no customer in selected pump.
         else
-            System.out.println("There is no customer in pump no " + (pump_number+1));
+            System.out.println("Invalid Pump number.");
         System.out.println("=".repeat(100));
         UserInput.nextLine();
     }
@@ -441,6 +457,8 @@ public class Task1_Array {
         for (int i = 0; i < customer_sort.length; i++){
             for (int j = 0; j < customer_sort[i].length; j++){
                 for (int k = j + 1; k < customer_sort[i].length; k++){
+
+                    // If the previous name is larger than next name by alphabetical order then, names will get swap
                     if (customer_sort[i][j].compareTo(customer_sort[i][k]) > 0){
                         String temp = customer_sort[i][j];
                         customer_sort[i][j] = customer_sort[i][k];
@@ -477,6 +495,8 @@ public class Task1_Array {
 
         // Storing available fuel in string.
         customerData_Container += "Available fuel in stock : " + fuelStock + " liters\n";
+
+        customerData_Container += "Served fuel in liters   : " + servedFuel + " liters\n";
 
         // Getting the count of customer count.
         int customer_count = 0;
@@ -524,7 +544,7 @@ public class Task1_Array {
 
         // Writing on text file.
         fileWrite.write(customerData_Container);
-
+        fileWrite.write(servedCustomer);
         // Committing the changes.
         fileWrite.close();
 

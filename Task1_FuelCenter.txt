@@ -1,0 +1,20 @@
+Available fuel in stock : 6580 liters
+Served fuel in liters   : 20liters
+Current customer count on Fuel center :  1
+
+Gasoline pump 1 : Werwe | Available | Available | Available | Available | Available | 
+Gasoline pump 2 : Available | Available | Available | Available | Available | Available | 
+Gasoline pump 3 : Available | Available | Available | Available | Available | Available | 
+
+5 slots available in pump no1
+6 slots available in pump no2
+6 slots available in pump no3
+
+Served Customers data
+---------------------
+1) Nrisuan
+   Pump number - 1
+
+2) Asdf
+   Pump number - 1
+
