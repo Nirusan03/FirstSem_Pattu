@@ -84,36 +84,36 @@ public class Task1_Array {
             else if (customer.equals("101") || customer.equals("VEQ"))
                 emptyQueue (customer_queue);
 
-            // If admin enter 102 or ACQ: Add customer to a Queue. "addCustomer" method will get call.
+                // If admin enter 102 or ACQ: Add customer to a Queue. "addCustomer" method will get call.
             else if (customer.equals("102") || customer.equals("ACQ"))
                 addCustomer(customer_queue);
 
-            // If admin enter 103 or RCQ: Remove a customer from a Queue. (From a specific location) "removeSpecific"
-            // will get call.
+                // If admin enter 103 or RCQ: Remove a customer from a Queue. (From a specific location) "removeSpecific"
+                // will get call.
             else if (customer.equals("103") || customer.equals("RCQ"))
                 removeSpecific(customer_queue);
 
-            // If admin enter 104 or PCQ: Remove a served customer. "removeServed" method will get call.
+                // If admin enter 104 or PCQ: Remove a served customer. "removeServed" method will get call.
             else if (customer.equals("104") || customer.equals("PCQ"))
                 removeServed(customer_queue);
 
-            // If admin enter 105 or VCS: View Customers Sorted in alphabetical order. "sorted" method will get call.
+                // If admin enter 105 or VCS: View Customers Sorted in alphabetical order. "sorted" method will get call.
             else if (customer.equals("105") || customer.equals("VCS"))
                 sortedNames(customer_queue);
 
-            // If admin enter 106 or SPD: Store Program Data into file. "storeDataFile" method will get call.
+                // If admin enter 106 or SPD: Store Program Data into file. "storeDataFile" method will get call.
             else if (customer.equals("106") || customer.equals("SPD"))
                 storeDataFile(customer_queue);
 
-            // If admin enter 107 or LPD: Load Program Data from file. "loadDataFile" method will get call.
+                // If admin enter 107 or LPD: Load Program Data from file. "loadDataFile" method will get call.
             else if (customer.equals("107") || customer.equals("LPD"))
                 loadDataFile(customer_queue);
 
-            // If admin enter 108 or STK: View Remaining Fuel Stock. "remainingFuel" method will get call.
+                // If admin enter 108 or STK: View Remaining Fuel Stock. "remainingFuel" method will get call.
             else if (customer.equals("108") || customer.equals("STK"))
                 remainingFuel();
 
-            //109 or AFS: Add Fuel Stock. "addFuel" method will get call.
+                //109 or AFS: Add Fuel Stock. "addFuel" method will get call.
             else if (customer.equals("109") || customer.equals("AFS")){
                 System.out.println("\n" + "-".repeat(60)+"\nAdding fuel to stock option is selected.\n");
                 addFuel();
@@ -218,71 +218,75 @@ public class Task1_Array {
         if (fuelStock == 0)
             System.out.println("Sorry there is no fuel in stock.\nAdd fuel please.");
 
-        // If there is fuel then program will ask admin to enter customer name.
+            // If there is fuel then program will ask admin to enter customer name.
         else{
             // If fuel in stock is lower than or equal to 100 then program will ask admin to add fuel or not.
             if (fuelStock <= 100)
-                    addFuel();
+                addFuel();
 
             // Display queue data before entering customer name.
             viewQueue(customer_queue);
+            if (count[0] == 0 && count[1] == 0 && count[2] == 0)
+                System.out.println("Sorry fuel center is full.\n");
+            else{
+                System.out.print("\nEnter customer's name : ");
 
-            System.out.print("\nEnter customer's name : ");
+                // Reading  customer name
+                name  = UserInput.nextLine();
 
-            // Reading  customer name
-            name  = UserInput.nextLine();
+                // Changing customer name's first letter to string.
+                name = Character.toUpperCase(name.charAt(0))+ name.substring(1);
 
-            // Changing customer name's first letter to string.
-            name = Character.toUpperCase(name.charAt(0))+ name.substring(1);
+                // Endless loop to get the proper input
+                while (true){
 
-            // Endless loop to get the proper input
-            while (true){
+                    // Endless loop to get valid input from admin
+                    // Handling errors if user enters any input rather than integer for pump number
+                    do{
 
-                // Endless loop to get valid input from admin
-                // Handling errors if user enters any input rather than integer for pump number
-                do{
-
-                    // Getting customer's pump to wish.
-                    try{
-                        System.out.print("Enter the pump number, " + name + " wish to go : ");
-                        pumpNo = UserInput.nextInt() - 1;
-                        break;
-                    }
-
-                    // Display alert message if user enters value rather than integers
-                    catch (InputMismatchException e){
-                        System.out.println("Pump number can only be number.\nInteger Required.\n");
-                        UserInput.nextLine();
-                    }
-                }while (true);
-
-                // If pump number is valid  then program will accept that.
-                if (pumpNo >= 0 && pumpNo <= 2){
-
-                    // If the particular queue is full then program will tell the admin to ask another pump number.
-                    if (count[pumpNo] == 0)
-                        System.out.println("Sorry, there is no space in pump " + pumpNo +
-                                "'s queue");
-
-                    // If there is space in queue then program will add customer name to array.
-                    else{
-                        for(int i = 0; i < customer_queue[pumpNo].length; i++){
-                            if (customer_queue[pumpNo][i].equals("e")){
-                                customer_queue[pumpNo][i] = name;
-                                System.out.println("Customer added to the queue");
-                                break;
-                            }
+                        // Getting customer's pump to wish.
+                        try{
+                            System.out.print("Enter the pump number, " + name + " wish to go : ");
+                            pumpNo = UserInput.nextInt() - 1;
+                            break;
                         }
-                        break;
-                    }
-                }
 
-                // If invalid pump numbers get entered then program will ask to enter again.
-                else{
-                    System.out.println("Invalid pump number.\n");
+                        // Display alert message if user enters value rather than integers
+                        catch (InputMismatchException e){
+                            System.out.println("Pump number can only be number.\nInteger Required.\n");
+                            UserInput.nextLine();
+                        }
+                    }while (true);
+
+                    // If pump number is valid  then program will accept that.
+                    if (pumpNo >= 0 && pumpNo <= 2){
+
+                        // If the particular queue is full then program will tell the admin to ask another pump number.
+                        if (count[pumpNo] == 0)
+                            System.out.println("Sorry, there is no space in pump " + (pumpNo +1) +
+                                    "'s queue");
+
+                            // If there is space in queue then program will add customer name to array.
+                        else{
+                            for(int i = 0; i < customer_queue[pumpNo].length; i++){
+                                if (customer_queue[pumpNo][i].equals("e")){
+                                    customer_queue[pumpNo][i] = name;
+                                    System.out.println("Customer added to the queue");
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+
+                    // If invalid pump numbers get entered then program will ask to enter again.
+                    else{
+                        System.out.println("Invalid pump number.\n");
+                    }
                 }
             }
-                UserInput.nextLine();
+
+            UserInput.nextLine();
         }
         System.out.println("=".repeat(100));
     }
@@ -348,12 +352,12 @@ public class Task1_Array {
                         }
                         break;
                     }
-
                     // If the pump number is invalid then asking admin to enter valid pump number.
                     else
                         System.out.println("Invalid Pump number.");
                 }
 
+                customer_queue[pump_number][5] = "e";
                 // Displaying customer is removed from the queue
                 System.out.println("Customer removed from the queue");
             }
@@ -409,6 +413,7 @@ public class Task1_Array {
                         }
                     }
 
+                    customer_queue[pump_number][5] = "e";
                     // Displaying the customer got removed.
                     System.out.println("\nServed for the customer. Customer removed from the queue.");
 
