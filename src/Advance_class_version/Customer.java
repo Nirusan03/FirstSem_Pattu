@@ -271,11 +271,6 @@ public class Customer  extends FuelQueue  {
                         System.out.println("Invalid Pump number.");
                 }
 
-//                customers[pump_number][5].setFirstName("name");
-//                customers[pump_number][5].setSecondName("name");
-//                customers[pump_number][5].setVehicleNo("vehicleNo");
-//                customers[pump_number][5].setLiter(0);
-//                customers[pump_number][5].setFilling("e");
                 customers[pump_number][5].fill();
             }
 
@@ -337,6 +332,16 @@ public class Customer  extends FuelQueue  {
                     customers[pump_number][5].fill();
                     // Displaying the customer got removed.
                     System.out.println("\nServed for the customer. Customer removed from the queue.");
+
+                    // Displaying a message when fuel reaches 500 liters of stock and asking to refill or not.
+                    if ( (6600 - getFuelStock()) % 500 == 0){
+                        System.out.println("Fuel reached a value of 500 liters.");
+                        f1.addFuel();
+                    }
+
+                    // Displaying remaining fuel.
+                    else
+                        System.out.println("Remaining fuel : " + getFuelStock() + " liters");
 
                     break;
                 }
@@ -401,7 +406,7 @@ public class Customer  extends FuelQueue  {
     public static void storeDataFile( FuelQueue[][] customers) throws IOException {
         // String variable to store data which going to store inside the text file.
         String customerData_Container = "";
-
+        int customer_count = 0;
         // Before storing displaying queue data to admin.
         f1.viewQueue(customers);
 
@@ -409,11 +414,14 @@ public class Customer  extends FuelQueue  {
         // Storing available fuel in string.
         customerData_Container += "Available fuel in stock : " + getFuelStock() + " liters\n";
 
+        for(int i = 0; i < incomeQueue.length; i++){ servedFuel += incomeQueue[i]; }
+        for(int i = 0; i < count.length; i++){ customer_count += count[i]; }
+
         customerData_Container += "Served fuel in liters   : " + servedFuel + " liters\n";
 
         // Getting the count of customer count.
         customerData_Container += "Current customer count on the fuel center : " +
-                (count[0] + count[1] + count[2] + count[3]  + count[4]) + "\n\nCurrent fuel queue details\n";
+                customer_count + "\n\nCurrent fuel queue details : \n";
 
         for(int i = 0; i < customers.length; i++){
             customerData_Container += "Fuel pump " + (i + 1) + " : ";
@@ -425,7 +433,15 @@ public class Customer  extends FuelQueue  {
             }
             customerData_Container +="\n";
         }
-        customerData_Container += "\n";
+        customerData_Container += "\n\nIncome including current fuel queue \n---------------------------------------";
+
+        double totalCost = 0;
+        for(int i = 0; i < incomeQueue.length; i++){
+            customerData_Container += "\nFuel queue "+ (i+1) + " income :  " + incomeQueue[i] * 420.0;
+            totalCost += incomeQueue[i] * 420.0;
+        }
+
+        customerData_Container += "\nTotal income : " + totalCost + " \n---------------------------------------\n" ;
 
         for(int i = 0; i < count.length; i++){
             if (count[i] == 0)

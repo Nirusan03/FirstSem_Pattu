@@ -1,6 +1,7 @@
 package Advance_class_version;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class FuelQueue extends abstraction{
 
@@ -155,16 +156,57 @@ public class FuelQueue extends abstraction{
     };
 
     public void addFuel(){
+        String option = "";
+        Scanner UserInput = new Scanner(System.in);
+        // Endless loop, break when user enter valid input.
+        while (true){
 
+            // If fuel in stock is lower than 100 asking admin to refill it or not.
+            if (fuelStock <= 100){
+                System.out.print("\nFuel stock is nearly empty.\nWould you like to add Stock again?" +
+                        "\nEnter 'Y' to refill | Enter 'N' to not refill : ");
+            }
+
+            // If there is no fuel in stock asking admin to refill it or not.
+            else if(fuelStock == 0){
+                System.out.print("\nFuel stock is empty." +
+                        "\nEnter 'Y' to refill | Enter 'N' to not refill : ");
+            }
+
+            // Asking admin to refill it or not.
+            else{
+                System.out.print("There are " + fuelStock + "l of fuel stock left.\nWould you like to add Stock again?" +
+                        "?\nEnter 'Y' to refill | Enter 'N' to not refill : ");
+            }
+
+            // Reading admins input
+            option = UserInput.nextLine().toUpperCase();
+
+            // If the option is yes then refilling the fuel in stock
+            if (option.equals("Y")){
+                fuelStock = 6600;
+                System.out.println("Fuel stock refiled.");
+                break;
+            }
+
+            // If the option is no then doing nothing
+            else if (option.equals("N")){
+                System.out.println("Stock is same");
+                break;
+            }
+
+            // If user enters invalid data then telling him to enter the data again.
+            else
+                System.out.println("Invalid option entered.\nTry again.\n");
+        }
     };
 
     public void fuelQueueIncome(FuelQueue[][] customers){
         System.out.println("\n" + "-".repeat(60)+"\nView income of each fuel queue Selected.\n");
         System.out.println("Displaying all queue's income");
-        System.out.println("Fuel queue 1 income :  " + incomeQueue[0] * 420.0);
-        System.out.println("Fuel queue 2 income :  " + incomeQueue[1] * 420.0);
-        System.out.println("Fuel queue 3 income :  " + incomeQueue[2] * 420.0);
-        System.out.println("Fuel queue 4 income :  " + incomeQueue[3] * 420.0);
-        System.out.println("Fuel queue 5 income :  " + incomeQueue[4] * 420.0);
+
+        for(int i = 0; i < incomeQueue.length; i++){
+            System.out.println("Fuel queue "+ (i+1) + " income :  " + incomeQueue[i] * 420.0);
+        }
     }
 }
