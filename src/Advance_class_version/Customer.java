@@ -109,6 +109,7 @@ public class Customer extends FuelQueue {
         // Declaring variables
         String firstName; // Temporarily stores customer first name.
         String secondName; // Temporarily stores customer second name.
+
         double liters; // Temporarily stores required liters.
         int pumpNo = 0;  // Temporarily store customer's pump number.
 
@@ -171,6 +172,61 @@ public class Customer extends FuelQueue {
         System.out.println("\n" + "-".repeat(60) + "\nRemoving Specific Customer from queue selected.\n\n");
         System.out.println("Displaying all customers in the queue");
         int pump_number = 0;
+        int pos = 0;
+
+        // Before removing the customer showing the queue details at first.
+        f1.viewQueue(customers);
+
+        // Endless loop to get valid input from admin
+        do{
+
+            // Storing customer's pump number to remove from the queue.
+            try{
+                System.out.print("\nEnter the customer's pump number to remove : ");
+                pump_number = UserInput.nextInt() - 1;
+                break;
+            }
+
+            // Display alert message if user enters value rather than integers
+            catch (InputMismatchException e){
+                System.out.println("Pump number can only be number.\nInteger Required.\n");
+                UserInput.nextLine();
+            }
+        }while(true);
+
+        if(count[pump_number] != 6){
+            // Endless loop to get valid input from admin
+            do{
+                // Storing customer's position number to remove from the queue.
+                try{
+                    System.out.print("Enter the customer's queue position number : ");
+                    pos = UserInput.nextInt();
+                    break;
+                }
+
+                // Display alert message if user enters value rather than integers
+                catch (InputMismatchException e){
+                    System.out.println("Queue position can only be number.\nInteger Required.\n");
+                    UserInput.nextLine();
+                }
+            }while (true);
+
+            // If the slot is not empty then removing the customer from the queue and filling the empty slot
+            // with behind customers.
+            if (!customers[pump_number][pos-1].getFilling().equals("e")){
+                while (true){
+                    if (pump_number <= 5 && pump_number >= 0 ){
+                        for (int i = pos - 1 ;i < customers[pump_number].length; i++){
+                            if (i != customers[pump_number].length-1){
+                                customers[pump_number][i].setFirstName(customers[pump_number][pos].getFirstName());
+                                customers[pump_number][i].setSecondName(customers[pump_number][pos].getSecondName());
+                                customers[pump_number][i].setLiter(customers[pump_number][pos].getLiter());
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public static void removeServed(FuelQueue[][] customers){
