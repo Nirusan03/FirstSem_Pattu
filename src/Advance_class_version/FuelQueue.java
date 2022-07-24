@@ -7,7 +7,7 @@ public class FuelQueue extends abstraction{
     private static int fuelStock = 6600;
     private String firstName;
     private String secondName;
-    private int vehicleNo;
+    private String vehicleNo;
     private double liter;
     private String filling;
     static FuelQueue[][] customers = new FuelQueue[5][6];
@@ -36,11 +36,11 @@ public class FuelQueue extends abstraction{
         this.secondName = secondName;
     }
 
-    public int getVehicleNo() {
+    public String getVehicleNo() {
         return vehicleNo;
     }
 
-    public void setVehicleNo(int vehicleNo) {
+    public void setVehicleNo(String vehicleNo) {
         this.vehicleNo = vehicleNo;
     }
 
@@ -61,9 +61,10 @@ public class FuelQueue extends abstraction{
 
 
     public void fill(){
-        setFilling("e");
+        filling = "e";
         firstName = "name";
         secondName = "name";
+        vehicleNo = "vehicleNo";
         liter = 0;
     }
 

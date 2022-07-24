@@ -109,7 +109,7 @@ public class Customer extends FuelQueue {
         // Declaring variables
         String firstName; // Temporarily stores customer first name.
         String secondName; // Temporarily stores customer second name.
-
+        String vehicleNo;  // Temporarily stores vehicle number.
         double liters; // Temporarily stores required liters.
         int pumpNo = 0;  // Temporarily store customer's pump number.
 
@@ -141,6 +141,10 @@ public class Customer extends FuelQueue {
                 // Changing customer name's second letter to string.
                 secondName = Character.toUpperCase(secondName.charAt(0))+ secondName.substring(1);
 
+                // Reading customers vehicle number
+                System.out.print("Enter customer's vehicle number: ");
+                vehicleNo  = UserInput.nextLine();
+
                 // Reading  required liters name
                 System.out.print("Enter required liters for " + firstName + "'s Vehicle : ");
                 liters  = UserInput.nextDouble();
@@ -155,6 +159,7 @@ public class Customer extends FuelQueue {
                         customers[pumpNo][i].setFirstName(firstName);
                         customers[pumpNo][i].setSecondName(secondName);
                         customers[pumpNo][i].setLiter(liters);
+                        customers[pumpNo][i].setVehicleNo(vehicleNo);
                         customers[pumpNo][i].setFilling("Filled");
                         incomeQueue[pumpNo] += liters;
                         System.out.println("Customer added to the queue");
@@ -220,17 +225,72 @@ public class Customer extends FuelQueue {
                             if (i != customers[pump_number].length-1){
                                 customers[pump_number][i].setFirstName(customers[pump_number][pos].getFirstName());
                                 customers[pump_number][i].setSecondName(customers[pump_number][pos].getSecondName());
+                                customers[pump_number][i].setVehicleNo(customers[pump_number][pos].getVehicleNo());
                                 customers[pump_number][i].setLiter(customers[pump_number][pos].getLiter());
+                                if (customers[pump_number][i].getFirstName().equals("name"))
+                                    customers[pump_number][i].setFilling("e");
+                                pos++;
                             }
                         }
+                        break;
                     }
+
+                    // If the pump number is invalid then asking admin to enter valid pump number.
+                    else
+                        System.out.println("Invalid Pump number.");
                 }
+
+//                customers[pump_number][5].setFirstName("name");
+//                customers[pump_number][5].setSecondName("name");
+//                customers[pump_number][5].setVehicleNo("vehicleNo");
+//                customers[pump_number][5].setLiter(0);
+//                customers[pump_number][5].setFilling("e");
+                customers[pump_number][5].fill();
             }
         }
     }
 
     public static void removeServed(FuelQueue[][] customers){
+        int pump_number = 0;
+        int pos = 1; // Variable to bring behind customers to front
+        System.out.println("\n" + "-".repeat(60)+"\nRemoving served customer from queue selected.\n");
 
+        System.out.println("Displaying all customers in the queue.\n");
+
+        // Before removing the served customer from queue, displaying the queue details first.
+        f1.viewQueue(customers);
+
+        // Getting pump number of served customer.
+        do{
+            try{
+                System.out.print("Enter the served customer's pump number : ");
+                pump_number = UserInput.nextInt()-1;
+                break;
+            }
+            // Display alert message if user enters value rather than integers
+            catch (InputMismatchException e){
+                System.out.println("Pump number can only be number.\nInteger Required.\n");
+                UserInput.nextLine();
+            }
+        }while (true);
+
+        if(pump_number <= 5 && pump_number >= 0){
+            while (true){
+                if (count[pump_number] != 6){
+                    for(int i = 0; i < customers.length; i ++){
+                        if (i != customers[pump_number].length-1){
+                            customers[pump_number][i].setFirstName(customers[pump_number][pos].getFirstName());
+                            customers[pump_number][i].setSecondName(customers[pump_number][pos].getSecondName());
+                            customers[pump_number][i].setVehicleNo(customers[pump_number][pos].getVehicleNo());
+                            customers[pump_number][i].setLiter(customers[pump_number][pos].getLiter());
+                            if (customers[pump_number][i].getFirstName().equals("name"))
+                                customers[pump_number][i].setFilling("e");
+                            pos++;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public static void sortedNames(FuelQueue[][] customers){
