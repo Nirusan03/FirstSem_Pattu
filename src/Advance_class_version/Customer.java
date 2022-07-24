@@ -153,6 +153,23 @@ public class Customer extends FuelQueue {
                     if (count[i] > count[pumpNo])
                         pumpNo = i;
                 }
+                // Endless loop to get valid input from admin
+                // Handling errors if user enters any input rather than integer for pump number
+                do{
+
+                    // Getting customer's pump to wish.
+                    try{
+                        System.out.print("Enter the pump number,  customer wish to go : ");
+                        pumpNo = UserInput.nextInt() - 1;
+                        break;
+                    }
+
+                    // Display alert message if user enters value rather than integers
+                    catch (InputMismatchException e){
+                        System.out.println("Pump number can only be number.\nInteger Required.\n");
+                        UserInput.nextLine();
+                    }
+                }while (true);
 
                 for(int i = 0; i < customers[pumpNo].length; i++){
                     if (customers[pumpNo][i].getFilling().equals("e")){
@@ -247,7 +264,17 @@ public class Customer extends FuelQueue {
 //                customers[pump_number][5].setFilling("e");
                 customers[pump_number][5].fill();
             }
+
+            // If the slot is empty. Showing slot is empty
+            else
+                System.out.println("There is no customer in that particular slot.");
         }
+
+        // If the pump is empty displaying a message
+        else
+            System.out.println("There is no customer in pump no " + (pump_number+1));
+        System.out.println("=".repeat(100));
+        UserInput.nextLine();
     }
 
     public static void removeServed(FuelQueue[][] customers){
@@ -278,7 +305,7 @@ public class Customer extends FuelQueue {
             while (true){
                 if (count[pump_number] != 6){
                     for(int i = 0; i < customers.length; i ++){
-                        if (i != customers[pump_number].length-1){
+                        if (i < customers[pump_number].length-1){
                             customers[pump_number][i].setFirstName(customers[pump_number][pos].getFirstName());
                             customers[pump_number][i].setSecondName(customers[pump_number][pos].getSecondName());
                             customers[pump_number][i].setVehicleNo(customers[pump_number][pos].getVehicleNo());
@@ -288,9 +315,25 @@ public class Customer extends FuelQueue {
                             pos++;
                         }
                     }
+                    customers[pump_number][5].fill();
+                    // Displaying the customer got removed.
+                    System.out.println("\nServed for the customer. Customer removed from the queue.");
+
+                    // Deducting 10 liters from fuel stock.
+                    setFuelStock(getFuelStock() - 10);
+                    break;
                 }
+
+                // If admin enters invalid pump number displaying the message and asking to enter again.
+                else
+                    System.out.println("There is no customer in pump no " + (pump_number+1));
             }
         }
+        // Displaying message if there is no customer in selected pump.
+        else
+            System.out.println("Invalid Pump number.");
+        System.out.println("=".repeat(100));
+        UserInput.nextLine();
     }
 
     public static void sortedNames(FuelQueue[][] customers){
