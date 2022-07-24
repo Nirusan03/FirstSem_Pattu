@@ -325,8 +325,11 @@ public class Customer extends FuelQueue {
                 }
 
                 // If admin enters invalid pump number displaying the message and asking to enter again.
-                else
+                else{
                     System.out.println("There is no customer in pump no " + (pump_number+1));
+                    break;
+                }
+
             }
         }
         // Displaying message if there is no customer in selected pump.
@@ -337,6 +340,50 @@ public class Customer extends FuelQueue {
     }
 
     public static void sortedNames(FuelQueue[][] customers){
+        System.out.println("\n" + "-".repeat(60)+"\nSorted customer names in the queues bellow.\n");
 
+        // Declaring an array store ordered customer name.
+        String[][] customer_sort = new String[5][6];
+
+        // Copying the customer's name array to another array.
+        for(int i = 0; i < customers.length; i ++){
+            for(int j = 0; j < customers[i].length; j++){
+                String fullName = customers[i][j].getFirstName() + " " + customers[i][j].getSecondName();
+                customer_sort[i][j] = fullName;
+            }
+        }
+//        for(String[] cus : customer_sort){
+//            for(String name : cus){
+//                System.out.print(name + " ");
+//            }
+//            System.out.println();
+//        }
+
+        for(int i = 0; i < customer_sort.length; i++){
+            for(int j = 0; j < customer_sort[i].length; j++){
+                for (int k = j +1 ; k < customer_sort[i].length; k++){
+                    if (!customer_sort[i][j].equals("name name")) {
+                        if (customer_sort[i][j].compareTo(customer_sort[i][k]) > 0){
+                            String tempName = customer_sort[i][j];
+                            customer_sort[i][j] = customer_sort[i][k];
+                            customer_sort[i][k] = tempName;
+                        }
+                    }
+                }
+            }
+        }
+
+        for(int i = 0; i < customer_sort.length; i++){
+            System.out.print("Fuel queue " + (i+1) + " : ");
+            for(int j = 0; j < customer_sort[i].length; j++){
+                if (!customer_sort[i][j].equals("name name"))
+                    System.out.print(customer_sort[i][j] + " | ");
+                else
+                    System.out.print(" Available | ");
+            }
+            System.out.println();
+        }
+
+        System.out.println("=".repeat(100));
     }
 }
