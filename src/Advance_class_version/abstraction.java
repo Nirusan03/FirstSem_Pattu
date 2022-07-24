@@ -12,10 +12,5 @@ abstract class abstraction {
 
     public abstract void addFuel();
 
-    public abstract void storeDataFile(FuelQueue[][] customers);
-
-    public abstract void loadDataFile(FuelQueue[][] customers);
-
-
     public abstract void fuelQueueIncome(FuelQueue[][] customers);
 }

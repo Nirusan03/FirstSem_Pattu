@@ -1,16 +1,29 @@
 package Advance_class_version;
 
-import java.sql.Statement;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
-public class Customer extends FuelQueue {
+public class Customer  extends FuelQueue  {
     // Scanner object to get input from user.
     public static Scanner UserInput = new Scanner(System.in);
     static FuelQueue f1 = new FuelQueue();
-    public static void main(String[] args) {
+
+
+    public static void main(String[] args) throws IOException {
+        // Removing data from the text file. So next time when program runs new data can be added without any
+        // issues.
+
+        // Writer class to perform writings on text file
+        // Accessing the text file
+        FileWriter fileWrite = new FileWriter("Task2_FuelCenter.txt", false);
+        PrintWriter printFile = new PrintWriter(fileWrite, false);
+
+        // Writing on text file
+        printFile.flush(); // Flushing the steam
+        printFile.close(); // Closing the file on print file class
+        fileWrite.close(); // Closing the file on file write class
+
         String customer;
-//        FuelQueue f1 = new FuelQueue();
         f1.initialise(customers);
         while (true){
 
@@ -63,11 +76,11 @@ public class Customer extends FuelQueue {
 
             // If admin enter 106 or SPD: Store Program Data into file. "storeDataFile" method will get call.
             else if (customer.equals("106") || customer.equals("SPD"))
-                f1.storeDataFile(customers);
+                storeDataFile(customers);
 
             // If admin enter 107 or LPD: Load Program Data from file. "loadDataFile" method will get call.
             else if (customer.equals("107") || customer.equals("LPD"))
-                f1.loadDataFile(customers);
+                loadDataFile(customers);
 
             // If admin enter 108 or STK: View Remaining Fuel Stock. "remainingFuel" method will get call.
             else if (customer.equals("108") || customer.equals("STK"))
@@ -238,6 +251,7 @@ public class Customer extends FuelQueue {
             if (!customers[pump_number][pos-1].getFilling().equals("e")){
                 while (true){
                     if (pump_number <= 5 && pump_number >= 0 ){
+                        incomeQueue[pump_number] -= customers[pump_number][pos-1].getLiter();
                         for (int i = pos - 1 ;i < customers[pump_number].length; i++){
                             if (i != customers[pump_number].length-1){
                                 customers[pump_number][i].setFirstName(customers[pump_number][pos].getFirstName());
@@ -304,6 +318,11 @@ public class Customer extends FuelQueue {
         if(pump_number <= 5 && pump_number >= 0){
             while (true){
                 if (count[pump_number] != 6){
+//                    incomeQueue[pump_number] += customers[pump_number][0].getLiter();
+                    setFuelStock(getFuelStock() - customers[pump_number][0].getLiter());
+                    servedCustomer_count ++;
+                    servedCustomer += (servedCustomer_count) + ") " +
+                            customers[pump_number][0].getFirstName() + "\n   Pump number - " + ( pump_number + 1) + "\n\n";
                     for(int i = 0; i < customers.length; i ++){
                         if (i < customers[pump_number].length-1){
                             customers[pump_number][i].setFirstName(customers[pump_number][pos].getFirstName());
@@ -319,8 +338,6 @@ public class Customer extends FuelQueue {
                     // Displaying the customer got removed.
                     System.out.println("\nServed for the customer. Customer removed from the queue.");
 
-                    // Deducting 10 liters from fuel stock.
-                    setFuelStock(getFuelStock() - 10);
                     break;
                 }
 
@@ -352,12 +369,6 @@ public class Customer extends FuelQueue {
                 customer_sort[i][j] = fullName;
             }
         }
-//        for(String[] cus : customer_sort){
-//            for(String name : cus){
-//                System.out.print(name + " ");
-//            }
-//            System.out.println();
-//        }
 
         for(int i = 0; i < customer_sort.length; i++){
             for(int j = 0; j < customer_sort[i].length; j++){
@@ -386,4 +397,64 @@ public class Customer extends FuelQueue {
 
         System.out.println("=".repeat(100));
     }
+
+    public static void storeDataFile( FuelQueue[][] customers) throws IOException {
+        // String variable to store data which going to store inside the text file.
+        String customerData_Container = "";
+
+        // Before storing displaying queue data to admin.
+        f1.viewQueue(customers);
+
+        customerData_Container += "FUEL CENTER - TASK 1\n====================\n\n";
+        // Storing available fuel in string.
+        customerData_Container += "Available fuel in stock : " + getFuelStock() + " liters\n";
+
+        customerData_Container += "Served fuel in liters   : " + servedFuel + " liters\n";
+
+        // Getting the count of customer count.
+        customerData_Container += "Current customer count on the fuel center : " +
+                (count[0] + count[1] + count[2] + count[3]  + count[4]) + "\n\nCurrent fuel queue details";
+
+        for(int i = 0; i < customers.length; i++){
+            customerData_Container += "Fuel pump " + (i + 1) + " : ";
+            for(int j = 0; j < customers[i].length; j++){
+                if (customers[i][j].getFilling().equals("e"))
+                    customerData_Container += " Available | ";
+                else
+                    customerData_Container += customers[i][j].getFirstName() + " " + customers[i][j].getSecondName();
+            }
+            customerData_Container +="\n";
+        }
+        customerData_Container += "\n";
+
+        for(int i = 0; i < count.length; i++){
+            if (count[i] == 0)
+                customerData_Container += "No slots available in pump no" + (i+1) + "\n";
+            else
+                customerData_Container += count[i] + " slot available in pump no " + (i+1) + "\n";
+        }
+
+        // Concatenating served customer count.
+        servedCount = "Served customer count : " + servedCustomer_count + "\n";
+
+        // Writer class to write on text file
+        // Accessing the text file
+
+        FileWriter fileWrite = new FileWriter("Task2_FuelCenter.txt");
+
+        // Writing on text file.
+        fileWrite.write(customerData_Container);
+        fileWrite.write(servedCustomer);
+        fileWrite.write((servedCount));
+        // Committing the changes.
+        fileWrite.close();
+
+        // Displaying the text after data got saved.
+        System.out.println("\n" + "-".repeat(60)+"\nData above stored in text file");
+        System.out.println("=".repeat(100));
+    };
+
+    public static void loadDataFile( FuelQueue[][] customers){
+
+    };
 }

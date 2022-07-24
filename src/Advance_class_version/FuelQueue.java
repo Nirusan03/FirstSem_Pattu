@@ -1,10 +1,12 @@
 package Advance_class_version;
 
+import java.io.IOException;
+
 public class FuelQueue extends abstraction{
 
     public static int[] count = {0, 0, 0, 0, 0};
     public static double[] incomeQueue = {0, 0, 0, 0, 0};
-    private static int fuelStock = 6600;
+    private static double fuelStock = 6600;
     private String firstName;
     private String secondName;
     private String vehicleNo;
@@ -12,11 +14,24 @@ public class FuelQueue extends abstraction{
     private String filling;
     static FuelQueue[][] customers = new FuelQueue[5][6];
 
-    public static int getFuelStock() {
+    // Storing served customers name inside a string variable to store in text file
+    public static String servedCustomer = "\nServed Customers data\n---------------------\n";
+
+    // Storing served customers count inside an integer variable to store in text file
+    public static int servedCustomer_count = 0;
+
+    // Storing served customers count inside a string variable to store in text file
+    public static String servedCount = "";
+
+    // Storing served fuel in liters inside an integer variable to store in text file
+    public static int servedFuel = 0;
+
+
+    public static double getFuelStock() {
         return fuelStock;
     }
 
-    public static void setFuelStock(int fuelStock) {
+    public static void setFuelStock(double fuelStock) {
         FuelQueue.fuelStock = fuelStock;
     }
 
@@ -134,18 +149,12 @@ public class FuelQueue extends abstraction{
     }
 
     public void remainingFuel(){
-
+        System.out.println("\n" + "-".repeat(60)+"\nnDisplaying remaining fuel in stock.\n");
+        System.out.println("Remaining fuel : " + fuelStock + " liters");
+        System.out.println("=".repeat(100));
     };
 
     public void addFuel(){
-
-    };
-
-    public void storeDataFile( FuelQueue[][] customers){
-
-    };
-
-    public void loadDataFile( FuelQueue[][] customers){
 
     };
 
