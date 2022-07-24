@@ -313,7 +313,7 @@ public class Customer  extends FuelQueue  {
         if(pump_number <= 5 && pump_number >= 0){
             while (true){
                 if (count[pump_number] != 6){
-//                    incomeQueue[pump_number] += customers[pump_number][0].getLiter();
+                    servedFuel += customers[pump_number][0].getLiter();
                     setFuelStock(getFuelStock() - customers[pump_number][0].getLiter());
                     servedCustomer_count ++;
                     servedCustomer += (servedCustomer_count) + ") " +
@@ -407,6 +407,7 @@ public class Customer  extends FuelQueue  {
         // String variable to store data which going to store inside the text file.
         String customerData_Container = "";
         int customer_count = 0;
+        double totalFuel = 0;
         // Before storing displaying queue data to admin.
         f1.viewQueue(customers);
 
@@ -414,8 +415,10 @@ public class Customer  extends FuelQueue  {
         // Storing available fuel in string.
         customerData_Container += "Available fuel in stock : " + getFuelStock() + " liters\n";
 
-        for(int i = 0; i < incomeQueue.length; i++){ servedFuel += incomeQueue[i]; }
-        for(int i = 0; i < count.length; i++){ customer_count += count[i]; }
+
+        for(int i = 0; i < count.length; i++){
+            customer_count += (6 - count[i]);
+        }
 
         customerData_Container += "Served fuel in liters   : " + servedFuel + " liters\n";
 
@@ -429,15 +432,17 @@ public class Customer  extends FuelQueue  {
                 if (customers[i][j].getFilling().equals("e"))
                     customerData_Container += " Available | ";
                 else
-                    customerData_Container += customers[i][j].getFirstName() + " " + customers[i][j].getSecondName();
+                    customerData_Container += customers[i][j].getFirstName() + " " + customers[i][j].getSecondName() + " | ";
             }
             customerData_Container +="\n";
         }
-        customerData_Container += "\n\nIncome including current fuel queue \n---------------------------------------";
+        for(int i = 0; i < incomeQueue.length; i++){ totalFuel += incomeQueue[i]; }
+        customerData_Container += "\n\nIncome including current fuel queue \n---------------------------------------\n" +
+                "Total Fuel : " + totalFuel + " liters";
 
         double totalCost = 0;
         for(int i = 0; i < incomeQueue.length; i++){
-            customerData_Container += "\nFuel queue "+ (i+1) + " income :  " + incomeQueue[i] * 420.0;
+            customerData_Container += "\nFuel queue "+ (i+1) + " income :  " + incomeQueue[i] + " liters - " +  incomeQueue[i] * 420.0 ;
             totalCost += incomeQueue[i] * 420.0;
         }
 
