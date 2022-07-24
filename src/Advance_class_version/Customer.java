@@ -413,7 +413,7 @@ public class Customer  extends FuelQueue  {
 
         // Getting the count of customer count.
         customerData_Container += "Current customer count on the fuel center : " +
-                (count[0] + count[1] + count[2] + count[3]  + count[4]) + "\n\nCurrent fuel queue details";
+                (count[0] + count[1] + count[2] + count[3]  + count[4]) + "\n\nCurrent fuel queue details\n";
 
         for(int i = 0; i < customers.length; i++){
             customerData_Container += "Fuel pump " + (i + 1) + " : ";
@@ -455,6 +455,25 @@ public class Customer  extends FuelQueue  {
     };
 
     public static void loadDataFile( FuelQueue[][] customers){
+        System.out.println("\n" + "-".repeat(60)+"\nLoaded data from text file\n");
 
+        // Error handling if the admin forgets to create the text file.
+        try{
+            // File class to read the text file.
+            // Accessing the text file.
+            File readFile = new File("Task1_FuelCenter.txt");
+
+            // Scanner object to read text file, line by line.
+            Scanner scanFile = new Scanner(readFile);
+            while (scanFile.hasNextLine())
+                System.out.println(scanFile.nextLine());
+
+            System.out.println("=".repeat(100));
+        }
+
+        // Exception if text not found
+        catch (FileNotFoundException e){
+            System.out.println("Cannot find the text file.\nCreate the text file and store data in it.");
+        }
     };
 }

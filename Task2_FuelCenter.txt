@@ -1,0 +1,23 @@
+FUEL CENTER - TASK 1
+====================
+
+Available fuel in stock : 6600.0 liters
+Served fuel in liters   : 0 liters
+Current customer count on the fuel center : 30
+
+Current fuel queue details
+Fuel pump 1 :  Available |  Available |  Available |  Available |  Available |  Available | 
+Fuel pump 2 :  Available |  Available |  Available |  Available |  Available |  Available | 
+Fuel pump 3 :  Available |  Available |  Available |  Available |  Available |  Available | 
+Fuel pump 4 :  Available |  Available |  Available |  Available |  Available |  Available | 
+Fuel pump 5 :  Available |  Available |  Available |  Available |  Available |  Available | 
+
+6 slot available in pump no 1
+6 slot available in pump no 2
+6 slot available in pump no 3
+6 slot available in pump no 4
+6 slot available in pump no 5
+
+Served Customers data
+---------------------
+Served customer count : 0
