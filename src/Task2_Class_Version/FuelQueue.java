@@ -1,6 +1,5 @@
-package Advance_class_version;
+package Task2_Class_Version;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class FuelQueue extends abstraction{

@@ -1,4 +1,4 @@
-package array_version;// Importing java classes to do full the tasks
+package Task1_Array_Version;// Importing java classes to do full the tasks
 import java.io.*;
 import java.util.*;
 

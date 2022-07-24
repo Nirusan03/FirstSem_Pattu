@@ -1,7 +1,6 @@
-package array_version;
+package Task1_Array_Version;
 
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class Testing {
     public static void main(String[] args) {

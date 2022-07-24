@@ -1,4 +1,4 @@
-package Advance_class_version;
+package Task2_Class_Version;
 
 abstract class abstraction {
     public abstract void fill();
