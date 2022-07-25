@@ -482,7 +482,7 @@ public class Customer  extends FuelQueue  {
         try{
             // File class to read the text file.
             // Accessing the text file.
-            File readFile = new File("Task1_FuelCenter.txt");
+            File readFile = new File("Task2_FuelCenter.txt");
 
             // Scanner object to read text file, line by line.
             Scanner scanFile = new Scanner(readFile);

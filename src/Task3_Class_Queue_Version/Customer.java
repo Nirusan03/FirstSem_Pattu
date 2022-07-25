@@ -159,7 +159,7 @@ public class Customer  extends FuelQueue {
             // Reading  required liters name
             System.out.print("Enter required liters for " + firstName + "'s Vehicle : ");
             liters  = UserInput.nextDouble();
-            if (count[0] == 5 || count[1] == 0 || count[2] == 0 || count[3] == 0 || count[4] == 0){
+            if (count[0] == 0 && count[1] == 0 && count[2] == 0 && count[3] == 0 && count[4] == 0){
                 System.out.print("\nSorry fuel center is full.\nDoes the customer likes to wait on the queue ?\nEnter 'Y'" +
                         "to add customer on queue.\nEnter 'N' if customer does not like it : ");
                 UserInput.nextLine();
@@ -345,6 +345,7 @@ public class Customer  extends FuelQueue {
                     customers[pump_number][5].fill();
                     // Displaying the customer got removed.
                     System.out.println("\nServed for the customer. Customer removed from the queue.");
+                    f1.dequeue();
 
                     // Displaying a message when fuel reaches 500 liters of stock and asking to refill or not.
                     if ( (6600 - getFuelStock()) % 500 == 0){
@@ -474,7 +475,7 @@ public class Customer  extends FuelQueue {
         // Writer class to write on text file
         // Accessing the text file
 
-        FileWriter fileWrite = new FileWriter("Task2_FuelCenter.txt");
+        FileWriter fileWrite = new FileWriter("Task3_FuelCenter.txt");
 
         // Writing on text file.
         fileWrite.write(customerData_Container);
@@ -495,7 +496,7 @@ public class Customer  extends FuelQueue {
         try{
             // File class to read the text file.
             // Accessing the text file.
-            File readFile = new File("Task1_FuelCenter.txt");
+            File readFile = new File("Task3_FuelCenter.txt");
 
             // Scanner object to read text file, line by line.
             Scanner scanFile = new Scanner(readFile);

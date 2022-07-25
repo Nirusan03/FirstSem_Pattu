@@ -253,4 +253,45 @@ public class FuelQueue extends abstraction {
 
         System.out.println(Arrays.toString(waitingCustomerQueue));
     }
+
+    public void dequeue(){
+        int pumpNo = 0;
+
+        if (rear == -1)
+            System.out.println();
+
+        else {
+            for(int i = 0; i < count.length; i++){
+                if (count[i] > count[pumpNo])
+                    pumpNo = i;
+            }
+
+            for (int i = 0; i < customers[pumpNo].length; i++){
+                if (customers[pumpNo][i].getFilling().equals("e")){
+                    System.out.println("Customer from waiting queue added to the fuel queue");
+                    customers[pumpNo][i].setFirstName(waitingCustomerQueue[font]); // 3
+                    waitingCustomerQueue[font] = "";
+                    font = (font + 1) % waitingCustomerQueue.length; //  4
+
+                    customers[pumpNo][i].setSecondName(waitingCustomerQueue[font]); // 4
+                    waitingCustomerQueue[font] = "";
+                    font = (font + 1) % waitingCustomerQueue.length; // 5
+
+                    customers[pumpNo][i].setVehicleNo(waitingCustomerQueue[font]); // 5
+                    waitingCustomerQueue[font] = "";
+                    font = (font + 1) % waitingCustomerQueue.length; // 6
+
+                    customers[pumpNo][i].setLiter(Double.parseDouble(waitingCustomerQueue[font])); // 6
+                    waitingCustomerQueue[font] = "";
+                    font = (font + 1) % waitingCustomerQueue.length; // 7
+
+                    customers[pumpNo][i].setFilling("Filled");
+                    break;
+                }
+            }
+
+            if (font == rear)
+                font = rear = -1;
+        }
+    }
 }
