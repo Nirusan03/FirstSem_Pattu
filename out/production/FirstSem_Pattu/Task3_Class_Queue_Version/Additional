@@ -1,0 +1,29 @@
+//        else if (font == rear){
+//            for(int i = 0; i < count.length; i++){
+//                if (count[i] > count[pumpNo])
+//                    pumpNo = i;
+//            }
+//            for (int i = 0; i < customers[pumpNo].length; i++){
+//                if (customers[pumpNo][i].getFilling().equals("e")){
+//                    System.out.println("Customer from waiting queue added to the fuel queue");
+//                    customers[pumpNo][i].setFirstName(waitingCustomerQueue[font]); // 0
+//                    waitingCustomerQueue[font] = "";
+//                    font = (font + 1) % waitingCustomerQueue.length; //  1
+//
+//                    customers[pumpNo][i].setSecondName(waitingCustomerQueue[font]); // 1
+//                    waitingCustomerQueue[font] = "";
+//                    font = (font + 1) % waitingCustomerQueue.length; // 2
+//
+//                    customers[pumpNo][i].setVehicleNo(waitingCustomerQueue[font]); // 2
+//                    waitingCustomerQueue[font] = "";
+//                    font = (font + 1) % waitingCustomerQueue.length; // 3
+//
+//                    customers[pumpNo][i].setLiter(Double.parseDouble(waitingCustomerQueue[font])); // 3
+//                    waitingCustomerQueue[font] = "";
+//
+//                    customers[pumpNo][i].setFilling("Filled");
+//                    break;
+//                }
+//            }
+//            font = rear = -1;
+//        }
