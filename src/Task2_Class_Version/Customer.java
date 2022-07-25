@@ -263,6 +263,7 @@ public class Customer  extends FuelQueue  {
                                 pos++;
                             }
                         }
+                        System.out.println("Removed the customer from fuel queue");
                         break;
                     }
 
