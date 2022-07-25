@@ -48,3 +48,6 @@ ASSUMPTIONS
    4. Polymorphism
 
 *) 110 or IFQ, No need to consider about serving, removing customers.
+
+
+*) Reserved and Removed customers space must be filled by the waiting queue.
