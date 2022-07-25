@@ -1,0 +1,50 @@
+CHANGES FROM TASK 1
+===============================
+
+*) Must use OOP concept
+
+*) There should be 2 classes :
+    1. FuelQueue class
+    2. Passenger class
+
+*) The array element should FuelQueue object elements
+
+*) Pump count     : 5
+   Customer count : 6
+
+*) Customer cannot select the queue number.
+   Admin (program) should assign the customer to fewest vehicle count pump.
+
+   Given explanation:
+                  "add customer to the Fuel queue (102 or ACQ) option
+                   must select the queue with the minimum length."
+
+*) New method to create,
+   110 or IFQ - Print each fuel queue's total income.
+                One liter fuel = 430
+
+   Given explanation:
+                 "‘110 or IFQ’ that will give the user the option to
+                 print the income of each Fuel queue.
+                 (You can take price of a fuel liter as 430)."
+
+
+*) Additional information to be stored.
+
+   1. First Name.
+   2. Second Name.
+   3. Vehicle No
+   4. No. of liters required - Ask from the customer.
+
+-----------------------------------------------------------------------------------------
+
+ASSUMPTIONS
+===============
+
+*) Should use all OOP concepts
+   1. Abstraction
+   2. Encapsulation
+   3. Inheritance
+   4. Polymorphism
+
+*) 110 or IFQ, No need to consider about serving, removing customers.
