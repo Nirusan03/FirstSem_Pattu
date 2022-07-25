@@ -13,4 +13,6 @@ abstract class abstraction {
     public abstract void addFuel();
 
     public abstract void fuelQueueIncome(FuelQueue[][] customers);
+
+    public abstract void enqueue(String fname, String sname, String vNo, double liter);
 }

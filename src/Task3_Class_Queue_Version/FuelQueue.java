@@ -1,5 +1,6 @@
 package Task3_Class_Queue_Version;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class FuelQueue extends abstraction {
@@ -12,7 +13,14 @@ public class FuelQueue extends abstraction {
     private String vehicleNo;
     private double liter;
     private String filling;
+
+    private int rear = -2;
+
+    private int font = -2;
+
+    private final String[] waitingCustomerQueue = new String[150];
     static FuelQueue[][] customers = new FuelQueue[5][6];
+//    static
 
     // Storing served customers name inside a string variable to store in text file
     public static String servedCustomer = "\nServed Customers data\n---------------------\n";
@@ -207,5 +215,42 @@ public class FuelQueue extends abstraction {
         for(int i = 0; i < incomeQueue.length; i++){
             System.out.println("Fuel queue "+ (i+1) + " income :  " + incomeQueue[i] * 420.0);
         }
+    }
+
+    public void enqueue(String fName, String sName, String vNo, double liter){
+        if (rear == -2 && font == -2){
+            rear = font = 0;
+            waitingCustomerQueue[rear] = fName;  // 0
+            rear = (rear + 1) % waitingCustomerQueue.length; // 1
+
+            waitingCustomerQueue[rear] = sName; // 1
+            rear = (rear + 1) % waitingCustomerQueue.length; // 2
+
+            waitingCustomerQueue[rear] = vNo; // 2
+            rear = (rear + 1) % waitingCustomerQueue.length; // 3
+
+            waitingCustomerQueue[rear] = String.valueOf(liter); // 3
+        }
+
+        else if (((rear + 1) % waitingCustomerQueue.length) == font){
+            System.out.println("\nWaiting queue is full.\n");
+        }
+
+        else {
+            rear = (rear + 1) % waitingCustomerQueue.length; // 4
+
+            waitingCustomerQueue[rear] = fName;  // 4
+            rear = (rear + 1) % waitingCustomerQueue.length; // 5
+
+            waitingCustomerQueue[rear] = sName; // 5
+            rear = (rear + 1) % waitingCustomerQueue.length; // 6
+
+            waitingCustomerQueue[rear] = vNo; // 6
+            rear = (rear + 1) % waitingCustomerQueue.length; // 7
+
+            waitingCustomerQueue[rear] = String.valueOf(liter); // 7
+        }
+
+        System.out.println(Arrays.toString(waitingCustomerQueue));
     }
 }

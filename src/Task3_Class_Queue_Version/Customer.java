@@ -139,30 +139,43 @@ public class Customer  extends FuelQueue {
 
             // Display queue data before entering customer name.
             f1.viewQueue(customers);
-            if (count[0] == 0 && count[1] == 0 && count[2] == 0 && count[3] == 0 && count[4] == 0)
-                System.out.println("Sorry fuel center is full.\n");
-            else{
 
-                // Reading  customer first name
-                System.out.print("\nEnter customer's first name : ");
-                firstName  = UserInput.nextLine();
-                // Changing customer name's first letter to string.
-                firstName = Character.toUpperCase(firstName.charAt(0))+ firstName.substring(1);
+            // Reading  customer first name
+            System.out.print("\nEnter customer's first name : ");
+            firstName  = UserInput.nextLine();
+            // Changing customer name's first letter to string.
+            firstName = Character.toUpperCase(firstName.charAt(0))+ firstName.substring(1);
 
-                // Reading  customer second name
-                System.out.print("Enter customer's second name : ");
-                secondName  = UserInput.nextLine();
-                // Changing customer name's second letter to string.
-                secondName = Character.toUpperCase(secondName.charAt(0))+ secondName.substring(1);
+            // Reading  customer second name
+            System.out.print("Enter customer's second name : ");
+            secondName  = UserInput.nextLine();
+            // Changing customer name's second letter to string.
+            secondName = Character.toUpperCase(secondName.charAt(0))+ secondName.substring(1);
 
-                // Reading customers vehicle number
-                System.out.print("Enter customer's vehicle number: ");
-                vehicleNo  = UserInput.nextLine();
+            // Reading customers vehicle number
+            System.out.print("Enter customer's vehicle number: ");
+            vehicleNo  = UserInput.nextLine();
 
-                // Reading  required liters name
-                System.out.print("Enter required liters for " + firstName + "'s Vehicle : ");
-                liters  = UserInput.nextDouble();
+            // Reading  required liters name
+            System.out.print("Enter required liters for " + firstName + "'s Vehicle : ");
+            liters  = UserInput.nextDouble();
+            if (count[0] == 5 || count[1] == 0 || count[2] == 0 || count[3] == 0 || count[4] == 0){
+                System.out.print("\nSorry fuel center is full.\nDoes the customer likes to wait on the queue ?\nEnter 'Y'" +
+                        "to add customer on queue.\nEnter 'N' if customer does not like it : ");
+                UserInput.nextLine();
+                String customerAns = UserInput.nextLine();
 
+                if (customerAns.equals("y")){
+                    System.out.println("enqueueing");
+                    f1.enqueue(firstName, secondName, vehicleNo, liters);
+                }
+
+                else if (customerAns.equals("n")){
+                    System.out.println("Thank you");
+                }
+            }
+
+            else {
                 for(int i = 0; i < count.length; i++){
                     if (count[i] > count[pumpNo])
                         pumpNo = i;
@@ -198,9 +211,8 @@ public class Customer  extends FuelQueue {
                     }
                 }
             }
-
-            UserInput.nextLine();
         }
+            UserInput.nextLine();
         System.out.println("=".repeat(100));
     }
 
