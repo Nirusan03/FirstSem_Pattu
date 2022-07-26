@@ -14,9 +14,9 @@ public class FuelQueue extends abstraction {
     private double liter;
     private String filling;
 
-    private int rear = -2;
+    private static int rear = -2;
 
-    private int font = -2;
+    private static int font = -2;
 
     private final String[] waitingCustomerQueue = new String[150];
     static FuelQueue[][] customers = new FuelQueue[5][6];
@@ -242,24 +242,28 @@ public class FuelQueue extends abstraction {
         if (rear == -2 && font == -2){
             rear = font = 0;
             waitingCustomerQueue[rear] = fName;  // 0
+            System.out.println(rear + " at First name");
             rear = (rear + 1) % waitingCustomerQueue.length; // 1
 
             waitingCustomerQueue[rear] = sName; // 1
+            System.out.println(rear + " at Second name");
             rear = (rear + 1) % waitingCustomerQueue.length; // 2
 
             waitingCustomerQueue[rear] = vNo; // 2
+            System.out.println(rear + " at Vehicle no name");
             rear = (rear + 1) % waitingCustomerQueue.length; // 3
 
             waitingCustomerQueue[rear] = String.valueOf(liter); // 3
+            System.out.println(rear + " at liter count");
+            rear = (rear + 1) % waitingCustomerQueue.length; // 4
         }
 
         else if (((rear + 1) % waitingCustomerQueue.length) == font){
             System.out.println("\nWaiting queue is full.\n");
+            System.out.println("Rear : " + rear + "\nFont : " + font);
         }
 
         else {
-            rear = (rear + 1) % waitingCustomerQueue.length; // 4
-
             waitingCustomerQueue[rear] = fName;  // 4
             rear = (rear + 1) % waitingCustomerQueue.length; // 5
 
@@ -270,6 +274,7 @@ public class FuelQueue extends abstraction {
             rear = (rear + 1) % waitingCustomerQueue.length; // 7
 
             waitingCustomerQueue[rear] = String.valueOf(liter); // 7
+            System.out.println("\nWaiting queue is full.\n");
         }
 
         System.out.println(Arrays.toString(waitingCustomerQueue));
@@ -278,7 +283,7 @@ public class FuelQueue extends abstraction {
     public void dequeue(){
         int pumpNo = 0;
 
-        if (rear == -1)
+        if (rear == -2)
             System.out.println();
 
         else {
@@ -312,7 +317,7 @@ public class FuelQueue extends abstraction {
             }
 
             if (font == rear)
-                font = rear = -1;
+                font = rear = -2;
         }
     }
 }

@@ -156,9 +156,26 @@ public class Customer  extends FuelQueue {
             System.out.print("Enter customer's vehicle number: ");
             vehicleNo  = UserInput.nextLine();
 
-            // Reading  required liters name
-            System.out.print("Enter required liters for " + firstName + "'s Vehicle : ");
-            liters  = UserInput.nextDouble();
+
+            do{
+
+                    // Reading  required liters name
+                    try{
+                        System.out.print("Enter required liters for " + firstName + "'s Vehicle : ");
+                        liters  = UserInput.nextDouble();
+                        break;
+                    }
+
+                    // Display alert message if user enters value rather than double
+                    catch (InputMismatchException e){
+                        System.out.println("Required liter can only be number.\nInteger Required.\n");
+                        UserInput.nextLine();
+                    }
+                }while (true);
+//            // Reading  required liters name
+//            System.out.print("Enter required liters for " + firstName + "'s Vehicle : ");
+//            liters  = UserInput.nextDouble();
+
             if (count[0] == 0 && count[1] == 0 && count[2] == 0 && count[3] == 0 && count[4] == 0){
                 System.out.print("\nSorry fuel center is full.\nDoes the customer likes to wait on the queue ?\nEnter 'Y'" +
                         "to add customer on queue.\nEnter 'N' if customer does not like it : ");
