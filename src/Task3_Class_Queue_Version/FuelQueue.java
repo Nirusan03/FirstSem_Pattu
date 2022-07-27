@@ -238,6 +238,7 @@ public class FuelQueue extends abstraction {
         }
     }
 
+
     public void enqueue(String fName, String sName, String vNo, double liter){
         if (rear == -2 && font == -2){
             rear = font = 0;
@@ -291,7 +292,7 @@ public class FuelQueue extends abstraction {
                 if (count[i] > count[pumpNo])
                     pumpNo = i;
             }
-
+            System.out.println(Arrays.toString(count) + "\nPump no : " + pumpNo);
             for (int i = 0; i < customers[pumpNo].length; i++){
                 if (customers[pumpNo][i].getFilling().equals("e")){
                     System.out.println("Customer from waiting queue added to the fuel queue");

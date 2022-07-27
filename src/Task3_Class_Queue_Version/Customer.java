@@ -172,9 +172,6 @@ public class Customer  extends FuelQueue {
                         UserInput.nextLine();
                     }
                 }while (true);
-//            // Reading  required liters name
-//            System.out.print("Enter required liters for " + firstName + "'s Vehicle : ");
-//            liters  = UserInput.nextDouble();
 
             if (count[0] == 0 && count[1] == 0 && count[2] == 0 && count[3] == 0 && count[4] == 0){
                 System.out.print("\nSorry fuel center is full.\nDoes the customer likes to wait on the queue ?\nEnter 'Y'" +
@@ -199,21 +196,21 @@ public class Customer  extends FuelQueue {
                 }
                 // Endless loop to get valid input from admin
                 // Handling errors if user enters any input rather than integer for pump number
-                do{
-
-                    // Getting customer's pump to wish.
-                    try{
-                        System.out.print("Enter the pump number,  customer wish to go : ");
-                        pumpNo = UserInput.nextInt() - 1;
-                        break;
-                    }
-
-                    // Display alert message if user enters value rather than integers
-                    catch (InputMismatchException e){
-                        System.out.println("Pump number can only be number.\nInteger Required.\n");
-                        UserInput.nextLine();
-                    }
-                }while (true);
+//                do{
+//
+//                    // Getting customer's pump to wish.
+//                    try{
+//                        System.out.print("Enter the pump number,  customer wish to go : ");
+//                        pumpNo = UserInput.nextInt() - 1;
+//                        break;
+//                    }
+//
+//                    // Display alert message if user enters value rather than integers
+//                    catch (InputMismatchException e){
+//                        System.out.println("Pump number can only be number.\nInteger Required.\n");
+//                        UserInput.nextLine();
+//                    }
+//                }while (true);
 
                 for(int i = 0; i < customers[pumpNo].length; i++){
                     if (customers[pumpNo][i].getFilling().equals("e")){
@@ -293,6 +290,7 @@ public class Customer  extends FuelQueue {
                                 pos++;
                             }
                         }
+                        customers[pump_number][5].fill();
                         System.out.println("Removed the customer from fuel queue");
                         f1.dequeue();
                         break;
@@ -302,8 +300,6 @@ public class Customer  extends FuelQueue {
                     else
                         System.out.println("Invalid Pump number.");
                 }
-
-                customers[pump_number][5].fill();
             }
 
             // If the slot is empty. Showing slot is empty
