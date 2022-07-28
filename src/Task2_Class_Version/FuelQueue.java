@@ -92,8 +92,9 @@ public class FuelQueue extends abstraction{
         }
     }
 
-    public void viewQueue(FuelQueue[][] customers){
+    public void viewQueue(FuelQueue[][] customers, int data){
         count = new int[]{0, 0, 0, 0, 0};
+        int custCount = 0;
         for(int i = 0; i < customers.length; i++){
             System.out.print("Fuel Pump no " + (i+1) + " : ");
             for (int j = 0; j < customers[i].length; j++){
@@ -110,10 +111,29 @@ public class FuelQueue extends abstraction{
 
         // Loop to display overview summary of fuel center's vehicle count .
         for (int x  = 0; x < count.length; x++){
+            custCount += count[x];
             if (count[x] == 0)
                 System.out.println("No slots available in pump no" + (x+1) + "\n");
             else
                 System.out.print(count[x] + " slots available in pump no" + (x+1) + "\n");
+        }
+
+        if (custCount != 30 && data == 1){
+            System.out.println("\nCustomer Data.\n" + "-".repeat("Customer Data.".length()) + "\n");
+            for (int i = 0; i < customers.length;i++){
+                if (count[i] != 6){
+                    System.out.println("Queue " + (i+1) + " : \n");
+                    for(int j = 0; j < customers[i].length; j++){
+                        if (!customers[i][j].getFilling().equals("e")){
+                            System.out.println("Full Name : " + customers[i][j].getFirstName() + " " + customers[i][j].getSecondName());
+                            System.out.println("First Name : " + customers[i][j].getFirstName());
+                            System.out.println("Second Name : " + customers[i][j].getSecondName());
+                            System.out.println(customers[i][j].getFirstName()+ "'s Vehicle number : " + customers[i][j].getVehicleNo());
+                            System.out.println("No of liters required : " + customers[i][j].getLiter() + "\n\n");
+                        }
+                    }
+                }
+            }
         }
     }
 

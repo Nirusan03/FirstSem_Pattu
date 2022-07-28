@@ -49,7 +49,7 @@ public class Customer  extends FuelQueue  {
             if (customer.equals("100") || customer.equals("VFQ"))
             {
                 System.out.println("\n" + "-".repeat(60)+"\nDisplaying all customers in fuel queue.\n");
-                f1.viewQueue(customers);
+                f1.viewQueue(customers, 1);
                 System.out.println("=".repeat(100));
             }
 
@@ -137,7 +137,7 @@ public class Customer  extends FuelQueue  {
                 f1.addFuel();
 
             // Display queue data before entering customer name.
-            f1.viewQueue(customers);
+            f1.viewQueue(customers, 0);
             if (count[0] == 0 && count[1] == 0 && count[2] == 0 && count[3] == 0 && count[4] == 0)
                 System.out.println("Sorry fuel center is full.\n");
             else{
@@ -210,7 +210,7 @@ public class Customer  extends FuelQueue  {
         int pos = 0;
 
         // Before removing the customer showing the queue details at first.
-        f1.viewQueue(customers);
+        f1.viewQueue(customers, 00);
 
         // Endless loop to get valid input from admin
         do{
@@ -295,7 +295,7 @@ public class Customer  extends FuelQueue  {
         System.out.println("Displaying all customers in the queue.\n");
 
         // Before removing the served customer from queue, displaying the queue details first.
-        f1.viewQueue(customers);
+        f1.viewQueue(customers, 0);
 
         // Getting pump number of served customer.
         do{
@@ -409,8 +409,9 @@ public class Customer  extends FuelQueue  {
         String customerData_Container = "";
         int customer_count = 0;
         double totalFuel = 0;
+        int custCount = 0;
         // Before storing displaying queue data to admin.
-        f1.viewQueue(customers);
+        f1.viewQueue(customers, 0);
 
         customerData_Container += "FUEL CENTER - TASK 1\n====================\n\n";
         // Storing available fuel in string.
@@ -437,6 +438,35 @@ public class Customer  extends FuelQueue  {
             }
             customerData_Container +="\n";
         }
+
+        customerData_Container +="\n";
+
+        for(int i = 0; i < count.length; i++){
+            custCount += count[i];
+            if (count[i] == 0)
+                customerData_Container += "No slots available in pump no" + (i+1) + "\n";
+            else
+                customerData_Container += count[i] + " slot available in pump no " + (i+1) + "\n";
+        }
+
+        if (custCount != 30){
+            customerData_Container += "\nCustomer Data.\n" + "-".repeat("Customer Data.".length()) + "\n";
+            for (int i = 0; i < customers.length;i++){
+                if (count[i] != 6){
+                    customerData_Container += "Queue " + (i+1) + " : \n";
+                    for(int j = 0; j < customers[i].length; j++){
+                        if (!customers[i][j].getFilling().equals("e")){
+                            customerData_Container +=  "Full Name : " + customers[i][j].getFirstName() + " " + customers[i][j].getSecondName() + "\n";
+                            customerData_Container +=  "First Name : " + customers[i][j].getFirstName() + "\n";
+                            customerData_Container +=  "Second Name : " + customers[i][j].getSecondName() + "\n";
+                            customerData_Container +=  customers[i][j].getFirstName()+ "'s Vehicle number : " + customers[i][j].getVehicleNo() + "\n";
+                            customerData_Container +=  "No of liters required : " + customers[i][j].getLiter() + "\n\n";
+                        }
+                    }
+                }
+            }
+        }
+
         for(int i = 0; i < incomeQueue.length; i++){ totalFuel += incomeQueue[i]; }
         customerData_Container += "\n\nIncome including current fuel queue \n---------------------------------------\n" +
                 "Total Fuel : " + totalFuel + " liters";
@@ -448,13 +478,6 @@ public class Customer  extends FuelQueue  {
         }
 
         customerData_Container += "\nTotal income : " + totalCost + " \n---------------------------------------\n" ;
-
-        for(int i = 0; i < count.length; i++){
-            if (count[i] == 0)
-                customerData_Container += "No slots available in pump no" + (i+1) + "\n";
-            else
-                customerData_Container += count[i] + " slot available in pump no " + (i+1) + "\n";
-        }
 
         // Concatenating served customer count.
         servedCount = "Served customer count : " + servedCustomer_count + "\n";

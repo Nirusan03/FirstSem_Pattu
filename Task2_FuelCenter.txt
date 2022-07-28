@@ -3,31 +3,42 @@ FUEL CENTER - TASK 1
 
 Available fuel in stock : 6600.0 liters
 Served fuel in liters   : 0 liters
-Current customer count on the fuel center : 0
+Current customer count on the fuel center : 1
 
 Current fuel queue details : 
-Fuel pump 1 :  Available |  Available |  Available |  Available |  Available |  Available | 
+Fuel pump 1 : Nrisuan Asd |  Available |  Available |  Available |  Available |  Available | 
 Fuel pump 2 :  Available |  Available |  Available |  Available |  Available |  Available | 
 Fuel pump 3 :  Available |  Available |  Available |  Available |  Available |  Available | 
 Fuel pump 4 :  Available |  Available |  Available |  Available |  Available |  Available | 
 Fuel pump 5 :  Available |  Available |  Available |  Available |  Available |  Available | 
 
-
-Income including current fuel queue 
----------------------------------------
-Total Fuel : 0.0 liters
-Fuel queue 1 income :  0.0 liters - 0.0
-Fuel queue 2 income :  0.0 liters - 0.0
-Fuel queue 3 income :  0.0 liters - 0.0
-Fuel queue 4 income :  0.0 liters - 0.0
-Fuel queue 5 income :  0.0 liters - 0.0
-Total income : 0.0 
----------------------------------------
-6 slot available in pump no 1
+5 slot available in pump no 1
 6 slot available in pump no 2
 6 slot available in pump no 3
 6 slot available in pump no 4
 6 slot available in pump no 5
+
+Customer Data.
+--------------
+Queue 1 : 
+Full Name : Nrisuan Asd
+First Name : Nrisuan
+Second Name : Asd
+Nrisuan's Vehicle number : 13
+No of liters required : 1.0
+
+
+
+Income including current fuel queue 
+---------------------------------------
+Total Fuel : 1.0 liters
+Fuel queue 1 income :  1.0 liters - 420.0
+Fuel queue 2 income :  0.0 liters - 0.0
+Fuel queue 3 income :  0.0 liters - 0.0
+Fuel queue 4 income :  0.0 liters - 0.0
+Fuel queue 5 income :  0.0 liters - 0.0
+Total income : 420.0 
+---------------------------------------
 
 Served Customers data
 ---------------------

@@ -4,7 +4,7 @@ abstract class abstraction {
     public abstract void fill();
     public abstract void initialise(FuelQueue[][] customers);
 
-    public abstract void viewQueue(FuelQueue[][] customers);
+    public abstract void viewQueue(FuelQueue[][] customers, int data);
 
     public abstract void emptyQueue(FuelQueue[][] customers);
 
